@@ -1,0 +1,9 @@
+# Python Explorer · Integrator · Innovator
+
+Repositorio de laboratorios para el aprendizaje progresivo de Python.
+
+Los laboratorios están organizados para trabajar los conceptos mediante ejemplos, ejercicios, retos y comprobaciones de resultado.
+
+## Laboratorios
+
+- [Laboratorio 1 — Primeros pasos con Python](laboratorios/laboratorio-01.md)
