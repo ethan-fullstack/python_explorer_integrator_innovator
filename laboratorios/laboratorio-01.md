@@ -7,7 +7,7 @@ En este laboratorio vas a comprobar que el entorno está listo y a construir tus
 | 1.1 | Verificación del entorno y primera ejecución |
 | 1.2 | Variables y tipos de datos |
 | 1.3 | Operadores y expresiones |
-| 1.4 | Entrada de datos con \`input()\` |
+| 1.4 | Entrada de datos con `input()` |
 | 1.5 | Reto integrador: cotizador de compra |
 
 > Ejecuta cada ejemplo antes de modificarlo. Si algo falla, lee el mensaje de error e intenta identificar la causa antes de cambiar varias líneas a la vez.
@@ -22,7 +22,7 @@ Al finalizar esta práctica podrás:
 
 - comprobar que Python está disponible;
 - verificar que Visual Studio Code puede trabajar con archivos Python;
-- crear y ejecutar un archivo \`.py\`;
+- crear y ejecutar un archivo `.py`;
 - ejecutar el mismo programa desde la terminal;
 - reconocer algunos errores básicos.
 
@@ -32,35 +32,35 @@ La mayor parte de los equipos del ambiente ya debería contar con las herramient
 
 Abre Visual Studio Code y luego una terminal desde:
 
-\`Terminal > New Terminal\`
+`Terminal > New Terminal`
 
-También puedes abrirla con el atajo **Ctrl + \`**.
+También puedes abrirla con el atajo **Ctrl + `**.
 
 Prueba primero:
 
-\`\`\`bash
+```bash
 python --version
-\`\`\`
+```
 
 En algunos equipos el comando disponible puede ser:
 
-\`\`\`bash
+```bash
 py --version
-\`\`\`
+```
 
 o:
 
-\`\`\`bash
+```bash
 python3 --version
-\`\`\`
+```
 
 Si alguno muestra una versión de **Python 3**, continúa con ese comando durante el laboratorio.
 
 Ejemplo:
 
-\`\`\`text
+```text
 Python 3.x.x
-\`\`\`
+```
 
 Si ninguno funciona, no instales ni actualices software por tu cuenta. Informa al instructor y utiliza la alternativa de ejecución indicada para el ambiente.
 
@@ -97,21 +97,21 @@ Si no está instalada y VS Code permite agregarla, puedes hacerlo. Si la instala
 
 Crea una carpeta para el laboratorio:
 
-\`\`\`text
+```text
 python-laboratorio-01/
-\`\`\`
+```
 
 Ábrela desde VS Code y crea:
 
-\`\`\`text
+```text
 hola_python.py
-\`\`\`
+```
 
 Escribe:
 
-\`\`\`python
+```python
 print("Python está funcionando.")
-\`\`\`
+```
 
 Guarda el archivo.
 
@@ -121,37 +121,37 @@ Si la extensión de Python está disponible, puedes utilizar **Run Python File**
 
 La salida debe incluir:
 
-\`\`\`text
+```text
 Python está funcionando.
-\`\`\`
+```
 
 ### 5. Ejecutar desde la terminal
 
-Ubícate en la carpeta donde guardaste \`hola_python.py\`.
+Ubícate en la carpeta donde guardaste `hola_python.py`.
 
-Si tu equipo usa \`python\`:
+Si tu equipo usa `python`:
 
-\`\`\`bash
+```bash
 python hola_python.py
-\`\`\`
+```
 
 Si usa el lanzador de Windows:
 
-\`\`\`bash
+```bash
 py hola_python.py
-\`\`\`
+```
 
-Si usa \`python3\`:
+Si usa `python3`:
 
-\`\`\`bash
+```bash
 python3 hola_python.py
-\`\`\`
+```
 
 Resultado:
 
-\`\`\`text
+```text
 Python está funcionando.
-\`\`\`
+```
 
 A diferencia de Java, en esta etapa no necesitas ejecutar un comando de compilación por separado.
 
@@ -159,7 +159,7 @@ A diferencia de Java, en esta etapa no necesitas ejecutar un comando de compilac
 
 Modifica el programa para obtener algo semejante a:
 
-\`\`\`text
+```text
 =========================
      PRIMER PROGRAMA
 =========================
@@ -168,9 +168,9 @@ Programa: ADSO
 Trimestre: 5
 
 Entorno Python listo.
-\`\`\`
+```
 
-Utiliza varias instrucciones \`print(...)\`.
+Utiliza varias instrucciones `print(...)`.
 
 ### Laboratorio de errores
 
@@ -182,9 +182,9 @@ Haz cada cambio por separado y corrígelo antes de pasar al siguiente.
 
 Prueba:
 
-\`\`\`python
+```python
 print("Hola Python"
-\`\`\`
+```
 
 Ejecuta el archivo y localiza en el mensaje la línea donde aparece el problema.
 
@@ -194,9 +194,9 @@ Después corrige el código.
 
 Prueba:
 
-\`\`\`python
+```python
 print(Hola Python)
-\`\`\`
+```
 
 Observa el mensaje y vuelve a escribir el texto correctamente.
 
@@ -204,22 +204,22 @@ Observa el mensaje y vuelve a escribir el texto correctamente.
 
 Prueba:
 
-\`\`\`python
+```python
 mensaje = "Hola"
 print(mensage)
-\`\`\`
+```
 
 Ejecuta el programa.
 
-Compara \`mensaje\` con \`mensage\`. Corrige el nombre y ejecuta de nuevo.
+Compara `mensaje` con `mensage`. Corrige el nombre y ejecuta de nuevo.
 
 ### Reto
 
 Crea:
 
-\`\`\`text
+```text
 presentacion.py
-\`\`\`
+```
 
 El programa debe mostrar una presentación breve con al menos cuatro datos. Diseña tú mismo la distribución de la salida.
 
@@ -259,13 +259,13 @@ Al finalizar esta práctica podrás:
 
 Crea:
 
-\`\`\`text
+```text
 datos_basicos.py
-\`\`\`
+```
 
 Escribe:
 
-\`\`\`python
+```python
 producto = "Teclado"
 cantidad = 3
 precio = 85000.0
@@ -275,7 +275,7 @@ print(producto)
 print(cantidad)
 print(precio)
 print(disponible)
-\`\`\`
+```
 
 Ejecuta el programa.
 
@@ -285,30 +285,30 @@ En Python no escribimos el tipo antes del nombre de la variable. El tipo está r
 
 Agrega:
 
-\`\`\`python
+```python
 print(type(producto))
 print(type(cantidad))
 print(type(precio))
 print(type(disponible))
-\`\`\`
+```
 
 La salida mostrará tipos como:
 
-\`\`\`text
+```text
 <class 'str'>
 <class 'int'>
 <class 'float'>
 <class 'bool'>
-\`\`\`
+```
 
 | Tipo | Ejemplo | Uso |
 |---|---|---|
-| \`str\` | \`"Monitor"\` | texto |
-| \`int\` | \`25\` | números enteros |
-| \`float\` | \`19.95\` | números con decimales |
-| \`bool\` | \`True\` | verdadero o falso |
+| `str` | `"Monitor"` | texto |
+| `int` | `25` | números enteros |
+| `float` | `19.95` | números con decimales |
+| `bool` | `True` | verdadero o falso |
 
-Observa que \`True\` y \`False\` se escriben con mayúscula inicial.
+Observa que `True` y `False` se escriben con mayúscula inicial.
 
 ### 3. Mostrar texto y variables
 
@@ -316,20 +316,20 @@ Puedes combinar texto y valores de varias maneras.
 
 Una forma directa:
 
-\`\`\`python
+```python
 nombre = "Laura"
 edad = 20
 
 print("Nombre:", nombre)
 print("Edad:", edad)
-\`\`\`
+```
 
 También puedes utilizar una **f-string**:
 
-\`\`\`python
-print(f"Nombre: \${nombre}")
-print(f"Edad: \${edad}")
-\`\`\`
+```python
+print(f"Nombre: {nombre}")
+print(f"Edad: {edad}")
+```
 
 Prueba ambas opciones.
 
@@ -337,9 +337,9 @@ Prueba ambas opciones.
 
 Crea:
 
-\`\`\`text
+```text
 perfil_aprendiz.py
-\`\`\`
+```
 
 Declara variables para:
 
@@ -351,7 +351,7 @@ Declara variables para:
 
 Muestra una ficha semejante a:
 
-\`\`\`text
+```text
 -------------------------
     PERFIL DEL APRENDIZ
 -------------------------
@@ -360,7 +360,7 @@ Edad: 20
 Trimestre: 5
 Promedio: 4.2
 Activo: True
-\`\`\`
+```
 
 Utiliza al menos dos f-strings.
 
@@ -368,7 +368,7 @@ Utiliza al menos dos f-strings.
 
 Ejecuta:
 
-\`\`\`python
+```python
 cantidad = 10
 
 print(cantidad)
@@ -376,11 +376,11 @@ print(cantidad)
 cantidad = 15
 
 print(cantidad)
-\`\`\`
+```
 
 Ahora prueba:
 
-\`\`\`python
+```python
 dato = 10
 print(dato)
 print(type(dato))
@@ -388,7 +388,7 @@ print(type(dato))
 dato = "diez"
 print(dato)
 print(type(dato))
-\`\`\`
+```
 
 Observa qué ocurre con el tipo.
 
@@ -398,27 +398,27 @@ No necesitas memorizar todavía cómo funciona internamente. Lo importante es re
 
 Crea:
 
-\`\`\`text
+```text
 inventario.py
-\`\`\`
+```
 
 Comienza con:
 
-\`\`\`python
+```python
 producto = "Monitor"
 unidades = 8
 precio = 720000.0
 disponible = True
-\`\`\`
+```
 
 Muestra un primer estado.
 
 Luego cambia:
 
-\`\`\`python
+```python
 unidades = 5
 precio = 699000.0
-\`\`\`
+```
 
 Muestra el estado actualizado.
 
@@ -430,19 +430,19 @@ Utiliza nombres que indiquen qué representa cada dato.
 
 Evita:
 
-\`\`\`python
+```python
 x = "Teclado"
 a = 85000
 b = 3
-\`\`\`
+```
 
 Prefiere:
 
-\`\`\`python
+```python
 nombre_producto = "Teclado"
 precio_unitario = 85000
 cantidad = 3
-\`\`\`
+```
 
 En Python es habitual separar las palabras con guion bajo.
 
@@ -452,10 +452,10 @@ Python no impide reasignar una variable, pero existe una convención para indica
 
 Ejemplo:
 
-\`\`\`python
+```python
 IVA = 0.19
 MESES_ANIO = 12
-\`\`\`
+```
 
 Esto no bloquea el cambio del valor; comunica la intención del programa.
 
@@ -463,7 +463,7 @@ Esto no bloquea el cambio del valor; comunica la intención del programa.
 
 Lee este programa:
 
-\`\`\`python
+```python
 nombre = "Ana"
 edad = 19
 
@@ -473,7 +473,7 @@ print(edad)
 edad = 20
 
 print(edad)
-\`\`\`
+```
 
 Escribe primero las tres líneas que esperas obtener.
 
@@ -483,13 +483,13 @@ Luego ejecuta y compara.
 
 Crea:
 
-\`\`\`text
+```text
 error_variables.py
-\`\`\`
+```
 
 Copia:
 
-\`\`\`python
+```python
 nombre = "Carlos"
 edad = 20
 promedio = 4.5
@@ -499,7 +499,7 @@ print("Nombre:", nombre)
 print("Edad:", edadd)
 print("Promedio:", promedio)
 print("Activo:", activo)
-\`\`\`
+```
 
 El programa contiene errores.
 
@@ -518,13 +518,13 @@ Representa los datos básicos de un producto utilizando variables:
 
 Agrega además:
 
-\`\`\`python
+```python
 IMPUESTO = 0.19
-\`\`\`
+```
 
 Muestra una ficha semejante a:
 
-\`\`\`text
+```text
 -------------------------
        PRODUCTO
 -------------------------
@@ -535,7 +535,7 @@ Precio: $78000.0
 Cantidad: 12
 Activo: True
 Impuesto: 0.19
-\`\`\`
+```
 
 ### Comprobación
 
@@ -558,7 +558,7 @@ Al finalizar esta práctica podrás:
 
 - realizar operaciones aritméticas;
 - utilizar suma, resta, multiplicación, división y residuo;
-- reconocer diferencias entre \`/\` y \`//\`;
+- reconocer diferencias entre `/` y `//`;
 - controlar el orden de las operaciones;
 - almacenar resultados intermedios.
 
@@ -566,23 +566,23 @@ Al finalizar esta práctica podrás:
 
 | Operador | Operación |
 |---|---|
-| \`+\` | suma |
-| \`-\` | resta |
-| \`*\` | multiplicación |
-| \`/\` | división |
-| \`//\` | división entera |
-| \`%\` | residuo |
-| \`**\` | potencia |
+| `+` | suma |
+| `-` | resta |
+| `*` | multiplicación |
+| `/` | división |
+| `//` | división entera |
+| `%` | residuo |
+| `**` | potencia |
 
 Crea:
 
-\`\`\`text
+```text
 operadores.py
-\`\`\`
+```
 
 Escribe:
 
-\`\`\`python
+```python
 a = 10
 b = 3
 
@@ -593,7 +593,7 @@ print(a / b)
 print(a // b)
 print(a % b)
 print(a ** b)
-\`\`\`
+```
 
 ### Antes de ejecutar
 
@@ -603,21 +603,21 @@ Luego ejecuta.
 
 Presta especial atención a:
 
-\`\`\`python
+```python
 a / b
 a // b
 a % b
-\`\`\`
+```
 
 ### 2. División normal y división entera
 
 Prueba:
 
-\`\`\`python
+```python
 print(5 / 2)
 print(5 // 2)
 print(5 % 2)
-\`\`\`
+```
 
 Explica con una frase qué hace cada operador.
 
@@ -627,7 +627,7 @@ Una aplicación necesita convertir minutos en horas y minutos restantes.
 
 Ejecuta:
 
-\`\`\`python
+```python
 total_minutos = 135
 
 horas = total_minutos // 60
@@ -635,28 +635,28 @@ minutos = total_minutos % 60
 
 print("Horas:", horas)
 print("Minutos restantes:", minutos)
-\`\`\`
+```
 
 Resultado:
 
-\`\`\`text
+```text
 Horas: 2
 Minutos restantes: 15
-\`\`\`
+```
 
 ### Ejercicio — Conversión de tiempo
 
 Crea:
 
-\`\`\`text
+```text
 conversion_tiempo.py
-\`\`\`
+```
 
 Usa inicialmente:
 
-\`\`\`python
+```python
 total_minutos = 367
-\`\`\`
+```
 
 Calcula:
 
@@ -669,13 +669,13 @@ Después prueba al menos tres valores diferentes.
 
 Antes de ejecutar, predice:
 
-\`\`\`python
+```python
 resultado_1 = 10 + 5 * 2
 resultado_2 = (10 + 5) * 2
 
 print(resultado_1)
 print(resultado_2)
-\`\`\`
+```
 
 Ejecuta y compara.
 
@@ -685,19 +685,19 @@ Los paréntesis permiten hacer explícito el orden que quieres aplicar.
 
 Crea:
 
-\`\`\`text
+```text
 calculo_promedio.py
-\`\`\`
+```
 
 Declara tres notas y calcula el promedio.
 
 Ejemplo:
 
-\`\`\`python
+```python
 nota_1 = 4.2
 nota_2 = 3.8
 nota_3 = 4.5
-\`\`\`
+```
 
 Muestra las tres notas y el promedio.
 
@@ -707,13 +707,13 @@ Prueba con otros valores.
 
 Crea:
 
-\`\`\`text
+```text
 calculo_compra.py
-\`\`\`
+```
 
 Escribe:
 
-\`\`\`python
+```python
 precio = 85000.0
 cantidad = 3
 porcentaje_descuento = 0.10
@@ -727,7 +727,7 @@ print("Cantidad:", cantidad)
 print("Subtotal: $", subtotal)
 print("Descuento: $", descuento)
 print("Total: $", total)
-\`\`\`
+```
 
 Modifica precio, cantidad y descuento. Ejecuta nuevamente y revisa cada resultado.
 
@@ -735,9 +735,9 @@ Modifica precio, cantidad y descuento. Ejecuta nuevamente y revisa cada resultad
 
 Crea:
 
-\`\`\`text
+```text
 calculo_salario.py
-\`\`\`
+```
 
 Utiliza variables para:
 
@@ -749,9 +749,9 @@ Calcula el pago total.
 
 Luego agrega:
 
-\`\`\`python
+```python
 APORTE = 0.04
-\`\`\`
+```
 
 Calcula cuánto representa el 4 % del pago.
 
@@ -761,7 +761,7 @@ El ejercicio busca practicar operaciones; no representa reglas laborales reales.
 
 Analiza:
 
-\`\`\`python
+```python
 unidades = 4
 precio = 25000.0
 descuento = 0.20
@@ -771,7 +771,7 @@ valor_descuento = subtotal * descuento
 total = subtotal - valor_descuento
 
 print(total)
-\`\`\`
+```
 
 Responde primero:
 
@@ -785,9 +785,9 @@ Después ejecútalo.
 
 Crea:
 
-\`\`\`text
+```text
 factura_simple.py
-\`\`\`
+```
 
 Define:
 
@@ -802,23 +802,23 @@ Calcula y muestra:
 - valor del descuento;
 - total después del descuento.
 
-No hagas todos los cálculos dentro de un único \`print\`. Guarda cada resultado en una variable.
+No hagas todos los cálculos dentro de un único `print`. Guarda cada resultado en una variable.
 
 Prueba:
 
-\`\`\`text
+```text
 Precio: 100000
 Cantidad: 2
 Descuento: 0.10
-\`\`\`
+```
 
 Resultado esperado:
 
-\`\`\`text
+```text
 Subtotal: $200000.0
 Descuento: $20000.0
 Total: $180000.0
-\`\`\`
+```
 
 ### Reto adicional
 
@@ -830,7 +830,7 @@ Agrega un porcentaje de impuesto y calcula:
 
 ---
 
-## Práctica 1.4 — Entrada de datos con \`input()\`
+## Práctica 1.4 — Entrada de datos con `input()`
 
 Hasta ahora los valores han estado escritos directamente en el código. A partir de esta práctica los programas recibirán información escrita por quien los ejecuta.
 
@@ -838,8 +838,8 @@ Hasta ahora los valores han estado escritos directamente en el código. A partir
 
 Al finalizar esta práctica podrás:
 
-- leer texto con \`input()\`;
-- convertir entradas a \`int\` y \`float\`;
+- leer texto con `input()`;
+- convertir entradas a `int` y `float`;
 - utilizar datos ingresados en expresiones;
 - reconocer errores comunes de conversión;
 - transformar ejercicios anteriores en programas interactivos.
@@ -848,96 +848,96 @@ Al finalizar esta práctica podrás:
 
 Crea:
 
-\`\`\`text
+```text
 saludo.py
-\`\`\`
+```
 
 Escribe:
 
-\`\`\`python
+```python
 nombre = input("Escribe tu nombre: ")
 
 print("Hola,", nombre)
-\`\`\`
+```
 
 Ejecuta varias veces utilizando nombres diferentes.
 
-### 2. Todo lo que entra con \`input()\` comienza como texto
+### 2. Todo lo que entra con `input()` comienza como texto
 
 Crea:
 
-\`\`\`text
+```text
 tipo_entrada.py
-\`\`\`
+```
 
 Escribe:
 
-\`\`\`python
+```python
 edad = input("Edad: ")
 
 print(edad)
 print(type(edad))
-\`\`\`
+```
 
 Escribe:
 
-\`\`\`text
+```text
 20
-\`\`\`
+```
 
 y observa el tipo.
 
-Aunque hayas escrito números, \`input()\` entrega texto.
+Aunque hayas escrito números, `input()` entrega texto.
 
 ### 3. Convertir la entrada
 
 Para trabajar con un entero:
 
-\`\`\`python
+```python
 edad = int(input("Edad: "))
-\`\`\`
+```
 
 Para un decimal:
 
-\`\`\`python
+```python
 precio = float(input("Precio: "))
-\`\`\`
+```
 
 Prueba:
 
-\`\`\`python
+```python
 edad = int(input("Edad: "))
 anio_siguiente = edad + 1
 
 print("El próximo año tendrás", anio_siguiente, "años.")
-\`\`\`
+```
 
 ### Laboratorio de errores — Conversión inválida
 
 Ejecuta:
 
-\`\`\`python
+```python
 edad = int(input("Edad: "))
 print(edad)
-\`\`\`
+```
 
 Cuando el programa solicite la edad, escribe:
 
-\`\`\`text
+```text
 veinte
-\`\`\`
+```
 
 Lee el mensaje de error.
 
-No necesitas resolver todavía este tipo de error con código. Más adelante trabajaremos el manejo de excepciones. Por ahora debes reconocer que \`int()\` espera un valor que pueda convertirse a entero.
+No necesitas resolver todavía este tipo de error con código. Más adelante trabajaremos el manejo de excepciones. Por ahora debes reconocer que `int()` espera un valor que pueda convertirse a entero.
 
 ### Ejercicio — Datos de usuario
 
 Crea:
 
-\`\`\`text
+```text
 datos_usuario.py
-\`\`\`
+```
 
 Solicita:
 
@@ -954,9 +954,9 @@ Utiliza conversiones adecuadas para edad y estatura.
 
 Crea:
 
-\`\`\`text
+```text
 suma_interactiva.py
-\`\`\`
+```
 
 Solicita dos números enteros y muestra:
 
@@ -973,24 +973,24 @@ Antes de ejecutar con nuevos valores, intenta predecir la salida.
 
 Crea:
 
-\`\`\`text
+```text
 conversor_temperatura.py
-\`\`\`
+```
 
 Solicita una temperatura en grados Celsius.
 
 Calcula Fahrenheit con:
 
-\`\`\`text
+```text
 °F = (°C × 9 / 5) + 32
-\`\`\`
+```
 
 Ejemplo:
 
-\`\`\`text
+```text
 Temperatura en °C: 25
 25.0 °C equivalen a 77.0 °F
-\`\`\`
+```
 
 Prueba:
 
@@ -1004,15 +1004,15 @@ Transforma el ejercicio de salario.
 
 El programa debe solicitar:
 
-\`\`\`text
+```text
 Nombre del trabajador:
 Horas trabajadas:
 Valor por hora:
-\`\`\`
+```
 
 y mostrar un resumen semejante a:
 
-\`\`\`text
+```text
 -------------------------
 RESUMEN DE PAGO
 -------------------------
@@ -1020,13 +1020,13 @@ Trabajador: Sara
 Horas: 36
 Valor por hora: $20000.0
 Pago total: $720000.0
-\`\`\`
+```
 
 ### Depuración — Programa incompleto
 
 Completa:
 
-\`\`\`python
+```python
 producto = ______________________________
 precio = ________________________________
 cantidad = ______________________________
@@ -1035,7 +1035,7 @@ subtotal = ______________________________
 
 print("Producto:", producto)
 print("Subtotal: $", subtotal)
-\`\`\`
+```
 
 El programa debe pedir los tres datos al usuario y calcular el subtotal.
 
@@ -1045,9 +1045,9 @@ Intenta resolverlo sin consultar los ejemplos anteriores.
 
 Crea:
 
-\`\`\`text
+```text
 conversion_unidades.py
-\`\`\`
+```
 
 Solicita una distancia en kilómetros.
 
@@ -1055,7 +1055,7 @@ Calcula:
 
 - metros;
 - centímetros;
-- millas aproximadas, utilizando \`1 km = 0.621371 millas\`.
+- millas aproximadas, utilizando `1 km = 0.621371 millas`.
 
 Muestra todos los resultados en una salida ordenada.
 
@@ -1063,8 +1063,8 @@ Muestra todos los resultados en una salida ordenada.
 
 Antes de continuar, asegúrate de poder explicar:
 
-- qué devuelve \`input()\`;
-- para qué sirven \`int()\` y \`float()\`;
+- qué devuelve `input()`;
+- para qué sirven `int()` y `float()`;
 - qué ocurre si intentas convertir texto no numérico a entero;
 - por qué un programa interactivo no necesita que edites el código cada vez que cambian los datos.
 
@@ -1082,9 +1082,9 @@ Construir una aplicación de consola que solicite los datos de una compra, reali
 
 Crea:
 
-\`\`\`text
+```text
 cotizador_compra.py
-\`\`\`
+```
 
 El programa debe solicitar:
 
@@ -1097,9 +1097,9 @@ El programa debe solicitar:
 
 Los porcentajes se ingresarán como números enteros. Por ejemplo:
 
-\`\`\`text
+```text
 10
-\`\`\`
+```
 
 representa 10 %.
 
@@ -1115,7 +1115,7 @@ No escribas resultados calculados directamente en la salida. Cada resultado debe
 
 ### Ejemplo de ejecución
 
-\`\`\`text
+```text
 =============================
       COTIZADOR PYTHON
 =============================
@@ -1139,7 +1139,7 @@ Descuento: $36000.0
 Base: $324000.0
 Impuesto: $61560.0
 TOTAL: $385560.0
-\`\`\`
+```
 
 El impuesto de este ejercicio se aplica sobre el valor obtenido después del descuento. Se utiliza únicamente para practicar expresiones aritméticas; no representa una regla tributaria o comercial.
 
@@ -1149,11 +1149,11 @@ Escribe en comentarios, con tus propias palabras, los cálculos que necesitas re
 
 Ejemplo:
 
-\`\`\`python
+```python
 # 1. Calcular ...
 # 2. Calcular ...
 # 3. ...
-\`\`\`
+```
 
 Primero organiza el problema. Después escribe las expresiones.
 
@@ -1176,19 +1176,19 @@ Ejecuta después de cada etapa.
 
 Para convertir un porcentaje entero a una proporción decimal:
 
-\`\`\`python
+```python
 porcentaje = valor_ingresado / 100
-\`\`\`
+```
 
 Utiliza nombres que expliquen qué contiene cada variable:
 
-\`\`\`python
+```python
 subtotal
 valor_descuento
 base
 valor_impuesto
 total
-\`\`\`
+```
 
 Si el resultado no coincide con lo esperado, imprime temporalmente los valores intermedios.
 
@@ -1198,59 +1198,59 @@ Comprueba el programa con distintos escenarios.
 
 #### Caso 1
 
-\`\`\`text
+```text
 Precio: 100000
 Cantidad: 2
 Descuento: 10
 Impuesto: 0
-\`\`\`
+```
 
 Resultado final esperado:
 
-\`\`\`text
+```text
 180000.0
-\`\`\`
+```
 
 #### Caso 2
 
-\`\`\`text
+```text
 Precio: 50000
 Cantidad: 3
 Descuento: 0
 Impuesto: 0
-\`\`\`
+```
 
 Resultado final esperado:
 
-\`\`\`text
+```text
 150000.0
-\`\`\`
+```
 
 #### Caso 3
 
-\`\`\`text
+```text
 Precio: 80000
 Cantidad: 5
 Descuento: 25
 Impuesto: 0
-\`\`\`
+```
 
 Resultado final esperado:
 
-\`\`\`text
+```text
 300000.0
-\`\`\`
+```
 
 #### Caso 4
 
 Utiliza:
 
-\`\`\`text
+```text
 Precio: 100000
 Cantidad: 1
 Descuento: 0
 Impuesto: 19
-\`\`\`
+```
 
 Calcula primero el resultado manualmente. Después ejecuta el programa y compara.
 
@@ -1299,8 +1299,8 @@ Al finalizar deberías poder:
 - reconocer tipos de datos básicos;
 - utilizar f-strings para construir salidas;
 - realizar operaciones aritméticas;
-- distinguir \`/\`, \`//\` y \`%\`;
-- recibir datos con \`input()\`;
+- distinguir `/`, `//` y `%`;
+- recibir datos con `input()`;
 - convertir texto a valores numéricos;
 - interpretar errores sencillos;
 - construir un programa de consola que reciba datos, procese información y presente un resultado.
