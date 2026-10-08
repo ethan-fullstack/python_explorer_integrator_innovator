@@ -1,16 +1,22 @@
-# Laboratorio 2 — Decisiones, ciclos y listas en Python
+# Laboratorio 2 — Decisiones, ciclos y colecciones en Python
 
-En el laboratorio anterior construiste programas que reciben datos, realizan cálculos y muestran resultados. Ahora vas a trabajar con programas que eligen entre varias acciones, repiten instrucciones y conservan varios valores en una lista.
+En el laboratorio anterior construiste programas que reciben datos y realizan cálculos. Ahora vas a tomar decisiones, repetir operaciones y guardar conjuntos de información. Trabajarás con las cuatro colecciones integradas más utilizadas en Python: listas, tuplas, conjuntos y diccionarios.
 
-El reto final será un gestor de productos con menú. Comenzarás guardando únicamente los nombres de los productos; más adelante podrás ampliar esa información con cantidades, precios y otras características.
+También aprenderás a crear colecciones a partir de otras mediante **comprensiones (comprehensions)**. Primero resolverás cada problema con instrucciones conocidas; después compararás esa solución con una comprensión.
+
+El reto final será un gestor de inventario que mantenga varios productos, sus datos y algunos informes. No utilizaremos todavía archivos ni bases de datos: la información permanecerá en memoria mientras el programa esté abierto.
 
 | Práctica | Tema |
 |---|---|
 | 2.1 | Comparaciones y decisiones con `if`, `elif` y `else` |
 | 2.2 | Condiciones compuestas y validaciones |
 | 2.3 | Ciclos `for` y `while` |
-| 2.4 | Listas y recorrido de elementos |
-| 2.5 | Reto integrador: gestor de productos |
+| 2.4 | Listas: acceso, modificaciones y recorridos |
+| 2.5 | Tuplas: datos agrupados que no cambian |
+| 2.6 | Conjuntos (`set`): valores únicos y operaciones |
+| 2.7 | Diccionarios y colecciones anidadas |
+| 2.8 | Comprensiones de listas, conjuntos y diccionarios |
+| 2.9 | Reto integrador: gestor de inventario |
 
 > Lee el ejemplo, predice lo que hará, ejecútalo y modifica los valores. Cuando llegues a un reto, intenta resolverlo antes de consultar las pistas. Trabaja con Python 3 en VS Code o con la alternativa de ejecución que utilizaste en el Laboratorio 1.
 
@@ -895,6 +901,127 @@ else:
     print("No se encontró el producto.")
 ~~~
 
+### 7. Reemplazar, insertar y extraer valores
+
+Además de agregar elementos al final, podemos cambiar la información de una lista.
+
+Crea `operaciones_lista.py`:
+
+~~~python
+productos = ["Teclado", "Mouse", "Monitor"]
+
+productos[1] = "Mouse inalámbrico"
+productos.insert(1, "Cámara web")
+
+eliminado = productos.pop()
+
+print("Elementos:", productos)
+print("Extraído:", eliminado)
+~~~
+
+Observa las diferencias:
+
+| Operación | Uso |
+|---|---|
+| `lista[indice] = valor` | reemplaza el elemento de una posición |
+| `append(valor)` | agrega un elemento al final |
+| `insert(indice, valor)` | inserta en una posición |
+| `remove(valor)` | elimina por su contenido |
+| `pop()` | extrae y devuelve el último elemento |
+| `pop(indice)` | extrae y devuelve el elemento de una posición |
+| `extend(otra_lista)` | agrega varios elementos |
+| `clear()` | vacía la lista |
+
+No confundas `remove()` con `pop()`: uno recibe un valor y el otro trabaja con una posición.
+
+### Ejercicio — Cambios de inventario
+
+Comienza con:
+
+~~~python
+productos = ["Teclado", "Mouse", "Monitor"]
+nuevos = ["Impresora", "Cámara"]
+~~~
+
+Haz lo siguiente, ejecutando después de cada paso:
+
+1. reemplaza `Mouse` por `Mouse inalámbrico`;
+2. inserta `Parlantes` en la primera posición;
+3. añade los dos elementos de `nuevos` con `extend()`;
+4. elimina `Monitor`;
+5. extrae el último elemento con `pop()` y muéstralo.
+
+Compara el resultado final con la secuencia de operaciones que realizaste.
+
+### 8. Obtener partes de una lista y ordenar
+
+Los cortes o *slices* permiten consultar varios elementos sin escribir cada índice.
+
+~~~python
+productos = ["Teclado", "Mouse", "Monitor", "Cámara", "Parlantes"]
+
+print(productos[0:2])
+print(productos[2:])
+print(productos[:3])
+print(productos[-2:])
+~~~
+
+El extremo final de un corte no se incluye.
+
+También puedes ordenar:
+
+~~~python
+productos = ["Monitor", "Cámara", "Teclado"]
+
+ordenados = sorted(productos)
+
+print("Original:", productos)
+print("Ordenados:", ordenados)
+~~~
+
+`sorted()` produce una lista nueva. En cambio, `productos.sort()` cambia la lista existente.
+
+Prueba ambas alternativas.
+
+### 9. Copiar no es lo mismo que compartir la lista
+
+Analiza:
+
+~~~python
+original = ["Teclado", "Mouse"]
+otra_referencia = original
+
+otra_referencia.append("Monitor")
+
+print(original)
+~~~
+
+Después ejecuta:
+
+~~~python
+original = ["Teclado", "Mouse"]
+copia = original.copy()
+
+copia.append("Monitor")
+
+print("Original:", original)
+print("Copia:", copia)
+~~~
+
+En el primer caso ambos nombres se refieren a la misma lista. En el segundo se crea una copia superficial: para estas listas de cadenas, las modificaciones de una no cambian la otra. Más adelante veremos qué ocurre cuando hay estructuras anidadas.
+
+### Ejercicio — Lista de calificaciones
+
+Crea `calificaciones_lista.py` con seis calificaciones.
+
+Muestra:
+
+- las tres primeras;
+- las dos últimas;
+- la cantidad total;
+- las notas ordenadas de menor a mayor, sin modificar el orden original;
+- cuántas veces aparece una nota concreta mediante `count()`.
+
 ### Depuración — Índice inexistente
 
 Analiza:
@@ -944,166 +1071,1070 @@ Asegúrate de poder explicar:
 
 ---
 
-## Práctica 2.5 — Reto integrador: gestor de productos
+## Práctica 2.5 — Tuplas: datos agrupados que no cambian
 
-En esta práctica vas a reunir condiciones, ciclos y listas. Construirás una aplicación de consola en la que el usuario podrá registrar, consultar, buscar y eliminar nombres de productos.
+### Objetivos
 
-No utilizarás todavía diccionarios, archivos, bases de datos ni funciones propias. Por ahora resolverás el problema con las herramientas trabajadas en este laboratorio. En el siguiente laboratorio reorganizaremos el programa con funciones y ampliaremos la información de cada producto.
+Al finalizar esta práctica podrás:
+
+- crear tuplas y consultar sus elementos;
+- distinguir una tupla de una lista;
+- desempacar valores en varias variables;
+- utilizar tuplas para representar datos que no necesitan modificación;
+- reconocer un error al intentar cambiar un elemento.
+
+### 1. Tuplas y listas
+
+Una tupla agrupa valores en un orden determinado. Se parece a una lista, pero no permite reemplazar, agregar ni eliminar elementos directamente.
+
+Crea `primeras_tuplas.py`:
+
+~~~python
+coordenadas = (4.6097, -74.0817)
+meses = ("enero", "febrero", "marzo")
+
+print(coordenadas)
+print(coordenadas[0])
+print(meses[-1])
+print(len(meses))
+~~~
+
+Las tuplas mantienen el orden y admiten índices y cortes, igual que las listas.
+
+### 2. La diferencia: mutabilidad
+
+Compara:
+
+~~~python
+colores_lista = ["rojo", "verde", "azul"]
+colores_lista[0] = "amarillo"
+
+print(colores_lista)
+~~~
+
+con:
+
+~~~python
+colores_tupla = ("rojo", "verde", "azul")
+colores_tupla[0] = "amarillo"
+~~~
+
+Ejecuta el segundo fragmento para reconocer el error. Después elimina la línea que intenta modificar la tupla.
+
+| Característica | Lista | Tupla |
+|---|---|---|
+| Sintaxis habitual | `[1, 2, 3]` | `(1, 2, 3)` |
+| Conserva el orden | Sí | Sí |
+| Permite elementos repetidos | Sí | Sí |
+| Acceso por índice | Sí | Sí |
+| Se puede modificar directamente | Sí | No |
+
+Una tupla es inmutable como contenedor, aunque puede contener objetos mutables. No necesitaremos ese caso para los ejercicios iniciales.
+
+### 3. Tupla con un solo elemento
+
+Ejecuta:
+
+~~~python
+valor = (10)
+tupla = (10,)
+
+print(type(valor))
+print(type(tupla))
+~~~
+
+La coma es importante: `(10)` es un entero entre paréntesis; `(10,)` es una tupla de un elemento.
+
+Para crear una tupla vacía se utiliza `()`.
+
+### 4. Desempaquetar una tupla
+
+Ejecuta:
+
+~~~python
+producto = ("P001", "Teclado", 85000)
+
+codigo, nombre, precio = producto
+
+print("Código:", codigo)
+print("Nombre:", nombre)
+print("Precio:", precio)
+~~~
+
+Al desempaquetar, la cantidad de variables debe coincidir con la cantidad de valores.
+
+### Ejercicio — Ubicación
+
+Crea `ubicaciones.py`.
+
+Registra tres coordenadas en tuplas separadas, cada una con latitud y longitud. Muestra los valores desempaquetándolos en variables con nombres claros.
+
+Luego crea una tupla con tres datos de una sede: código, nombre y ciudad. Muéstralos sin acceder por índices.
+
+### 5. Una colección fija de opciones
+
+Las tuplas son útiles cuando necesitamos un grupo de opciones que no cambia durante el programa.
+
+~~~python
+categorias = ("Periféricos", "Componentes", "Accesorios")
+
+for categoria in categorias:
+    print(categoria)
+
+elegida = input("Categoría: ").strip()
+
+if elegida in categorias:
+    print("Categoría válida.")
+else:
+    print("Categoría no registrada.")
+~~~
+
+### Depuración — Desempaquetado incorrecto
+
+Ejecuta:
+
+~~~python
+producto = ("P001", "Teclado", 85000)
+codigo, nombre = producto
+~~~
+
+Lee el error y corrige la asignación sin eliminar información de la tupla.
+
+### Reto — Catálogo de categorías
+
+Crea `categorias_tupla.py`.
+
+Declara una tupla con cuatro categorías de productos. El programa debe:
+
+1. mostrar las categorías numeradas;
+2. solicitar una categoría por su nombre;
+3. indicar si pertenece a las opciones permitidas;
+4. mostrar la cantidad de categorías disponibles.
+
+Prueba una categoría válida, una desconocida y una escrita con espacios adicionales.
+
+### Comprobación
+
+Antes de continuar verifica por qué usarías una tupla para categorías fijas y una lista para productos que vas a registrar o eliminar.
+
+---
+
+## Práctica 2.6 — Conjuntos (`set`): valores únicos y operaciones
+
+### Objetivos
+
+Al finalizar esta práctica podrás:
+
+- crear conjuntos;
+- eliminar valores duplicados mediante `set()`;
+- agregar y quitar elementos;
+- comprobar pertenencia;
+- utilizar unión, intersección y diferencia;
+- distinguir un conjunto de una lista o una tupla.
+
+### 1. Crear un conjunto
+
+Un conjunto almacena elementos únicos. No ofrece posiciones numéricas para acceder a cada elemento y no garantiza un orden de presentación.
+
+Crea `primer_conjunto.py`:
+
+~~~python
+categorias = {"Periféricos", "Accesorios", "Componentes", "Periféricos"}
+
+print(categorias)
+print("Cantidad:", len(categorias))
+~~~
+
+¿Cuántos elementos esperas encontrar? Ejecuta y comprueba.
+
+El orden al imprimir un conjunto puede variar.
+
+### 2. Crear un conjunto vacío
+
+Compara:
+
+~~~python
+vacio = set()
+otro = {}
+
+print(type(vacio))
+print(type(otro))
+~~~
+
+`set()` crea un conjunto vacío. `{}` crea un diccionario vacío, que veremos a continuación.
+
+### 3. Eliminar duplicados de una lista
+
+Ejecuta:
+
+~~~python
+ciudades = ["Bogotá", "Cali", "Bogotá", "Medellín", "Cali"]
+unicas = set(ciudades)
+
+print("Total de registros:", len(ciudades))
+print("Ciudades diferentes:", len(unicas))
+print(unicas)
+~~~
+
+Prueba también:
+
+~~~python
+lista_unicas = list(unicas)
+print(lista_unicas)
+~~~
+
+El cambio de tipo no recupera el orden original. Si necesitas mantener ese orden, esta conversión no es suficiente.
+
+### Ejercicio — Etiquetas sin repetidos
+
+Crea `etiquetas.py` con una lista que contenga nombres de etiquetas repetidas. Muestra la cantidad de registros originales y cuántas etiquetas diferentes existen.
+
+### 4. Agregar y eliminar elementos
+
+~~~python
+categorias = {"Periféricos", "Accesorios"}
+
+categorias.add("Componentes")
+categorias.update(["Papelería", "Accesorios"])
+
+print(categorias)
+
+categorias.discard("Papelería")
+print(categorias)
+~~~
+
+Diferencia importante:
+
+- `add()` agrega un elemento;
+- `update()` incorpora los elementos de otro iterable;
+- `discard()` no falla si el valor no existe;
+- `remove()` produce un error si el valor no está presente.
+
+### Ejercicio — Participantes únicos
+
+Crea `participantes.py`.
+
+Parte de dos listas de nombres que incluyen repetidos. Convierte la información a un conjunto y muestra cuántas personas diferentes aparecen.
+
+Agrega luego una persona con `add()` y elimina otra con `discard()`.
+
+### 5. Operaciones entre conjuntos
+
+Supongamos que hay dos grupos de aprendices:
+
+~~~python
+grupo_a = {"Ana", "Carlos", "Laura", "Sara"}
+grupo_b = {"Laura", "Sara", "David", "Pablo"}
+~~~
+
+Ejecuta:
+
+~~~python
+print("Unión:", grupo_a | grupo_b)
+print("Intersección:", grupo_a & grupo_b)
+print("Solo A:", grupo_a - grupo_b)
+print("Diferencia simétrica:", grupo_a ^ grupo_b)
+~~~
+
+| Operación | Símbolo | Qué devuelve |
+|---|---|---|
+| Unión | `|` | elementos de cualquiera de los conjuntos |
+| Intersección | `&` | elementos comunes |
+| Diferencia | `-` | elementos del primero que no están en el segundo |
+| Diferencia simétrica | `^` | elementos que no están en ambos a la vez |
+
+### Antes de ejecutar — Predice
+
+Con los conjuntos anteriores, escribe qué nombres deberían aparecer en:
+
+- la intersección;
+- la diferencia `grupo_a - grupo_b`;
+- la diferencia simétrica.
+
+Luego ejecuta y compara sin depender del orden en que se impriman los nombres.
+
+### Reto — Inscripciones en talleres
+
+Crea `inscripciones_talleres.py`.
+
+Define dos conjuntos: aprendices inscritos a Python y aprendices inscritos a Java.
+
+El programa debe mostrar:
+
+1. inscritos en al menos uno de los talleres;
+2. inscritos en ambos;
+3. inscritos únicamente en Python;
+4. inscritos únicamente en Java;
+5. inscritos en uno solo de los talleres.
+
+Incluye al menos dos nombres compartidos entre ambos conjuntos para poder verificar las operaciones.
+
+### Error frecuente
+
+No intentes acceder a `categorias[0]` en un conjunto. No tiene índices. Si necesitas mantener orden y consultar posiciones, utiliza una lista o una tupla.
+
+### Comprobación
+
+Antes de continuar distingue entre:
+
+- valores únicos y valores que pueden repetirse;
+- `{}` y `set()`;
+- `remove()` y `discard()`;
+- unión e intersección.
+
+---
+
+## Práctica 2.7 — Diccionarios y colecciones anidadas
+
+### Objetivos
+
+Al finalizar esta práctica podrás:
+
+- representar datos mediante pares clave–valor;
+- consultar, agregar, modificar y eliminar campos;
+- utilizar `get()` para claves opcionales;
+- recorrer claves, valores y pares;
+- guardar diccionarios dentro de listas;
+- recorrer una lista de registros y calcular resultados.
+
+### 1. Un producto con varios datos
+
+Una lista es adecuada para guardar varios nombres. Pero un producto también puede tener código, precio, categoría y cantidad.
+
+Crea `primer_diccionario.py`:
+
+~~~python
+producto = {
+    "codigo": "P001",
+    "nombre": "Teclado",
+    "precio": 85000.0,
+    "cantidad": 4,
+    "categoria": "Periféricos"
+}
+
+print(producto)
+print(producto["nombre"])
+print(producto["precio"])
+~~~
+
+En un diccionario consultamos la información mediante claves, no mediante posiciones.
+
+### 2. Consultar y modificar campos
+
+Ejecuta:
+
+~~~python
+producto["cantidad"] = 8
+producto["activo"] = True
+
+print(producto)
+~~~
+
+Se puede modificar una clave existente y agregar una nueva.
+
+Para consultar una clave que podría no existir:
+
+~~~python
+print(producto.get("marca"))
+print(producto.get("marca", "Sin marca"))
+~~~
+
+`get()` evita el error que aparecería al acceder con `producto["marca"]` si esa clave no existe.
+
+### Ejercicio — Perfil de aprendiz
+
+Crea `perfil_diccionario.py`.
+
+Representa en un diccionario:
+
+- ficha;
+- nombre;
+- trimestre;
+- promedio;
+- activo.
+
+Muestra el nombre, cambia el trimestre y agrega una clave para el correo electrónico.
+
+### 3. Recorrer un diccionario
+
+Ejecuta:
+
+~~~python
+producto = {
+    "codigo": "P001",
+    "nombre": "Teclado",
+    "precio": 85000.0
+}
+
+for clave in producto:
+    print(clave)
+
+for valor in producto.values():
+    print(valor)
+
+for clave, valor in producto.items():
+    print(clave, ":", valor)
+~~~
+
+Los diccionarios conservan el orden de inserción de las claves, pero se consultan principalmente por su clave.
+
+### 4. Eliminar y actualizar
+
+Ejecuta:
+
+~~~python
+producto = {
+    "codigo": "P001",
+    "nombre": "Teclado",
+    "precio": 85000.0,
+    "cantidad": 4
+}
+
+producto.update({"precio": 80000.0, "cantidad": 5})
+cantidad_eliminada = producto.pop("cantidad")
+
+print(producto)
+print("Cantidad eliminada:", cantidad_eliminada)
+~~~
+
+`update()` actualiza o agrega pares. `pop()` puede extraer una clave y su valor, pero si la clave no existe produce un error a menos que se proporcione un valor predeterminado.
+
+### Ejercicio — Ajuste de precio
+
+Crea `actualizar_producto.py`.
+
+Parte de un diccionario con código, nombre, precio y cantidad. Solicita un nuevo precio y actualiza únicamente ese campo si el valor es mayor que cero.
+
+Después muestra todos los pares clave–valor con `items()`.
+
+### 5. Una lista de diccionarios
+
+Ahora combinaremos dos colecciones:
+
+~~~python
+productos = [
+    {"codigo": "P001", "nombre": "Teclado", "precio": 85000.0, "cantidad": 4},
+    {"codigo": "P002", "nombre": "Mouse", "precio": 45000.0, "cantidad": 7},
+    {"codigo": "P003", "nombre": "Monitor", "precio": 700000.0, "cantidad": 2}
+]
+
+for producto in productos:
+    print(producto["codigo"], "-", producto["nombre"])
+~~~
+
+La lista agrupa productos y cada diccionario contiene los datos de un producto.
+
+### 6. Calcular sobre una lista de diccionarios
+
+Utiliza los mismos datos:
+
+~~~python
+valor_inventario = 0
+
+for producto in productos:
+    valor_inventario += producto["precio"] * producto["cantidad"]
+
+print("Valor del inventario:", valor_inventario)
+~~~
+
+Antes de ejecutar, calcula manualmente el valor esperado:
+
+- Teclados: 85.000 × 4
+- Mouse: 45.000 × 7
+- Monitores: 700.000 × 2
+
+### Ejercicio — Agregar un registro
+
+Crea `catalogo_diccionarios.py`.
+
+Comienza con la lista anterior y solicita los datos de un cuarto producto. Construye un nuevo diccionario y agrégalo con `append()`.
+
+Muestra todos los productos, incluyendo el nuevo.
+
+### 7. Estructuras anidadas
+
+Un diccionario también puede contener listas o incluso otros diccionarios:
+
+~~~python
+curso = {
+    "nombre": "Fundamentos de Python",
+    "aprendices": ["Ana", "Luis", "Camila"],
+    "instructor": {
+        "nombre": "María",
+        "area": "Software"
+    }
+}
+
+print(curso["nombre"])
+print(curso["aprendices"][1])
+print(curso["instructor"]["nombre"])
+~~~
+
+Para leer correctamente una estructura anidada, avanza un nivel a la vez: primero la clave, luego la posición o la siguiente clave.
+
+### Ejercicio — Información de un curso
+
+Crea `curso_anidado.py`.
+
+Representa un curso con nombre, código, una lista de tres temas y un diccionario con los datos de su instructor. Muestra:
+
+- nombre del curso;
+- segundo tema;
+- nombre del instructor;
+- cantidad de temas.
+
+### 8. Buscar un producto por código
+
+En una lista de diccionarios no podemos buscar un código escribiendo solamente `codigo in productos`, porque los elementos de la lista son diccionarios completos.
+
+Recórrela:
+
+~~~python
+codigo_buscado = input("Código: ").strip()
+encontrado = False
+
+for producto in productos:
+    if producto["codigo"] == codigo_buscado:
+        print("Encontrado:", producto["nombre"])
+        encontrado = True
+        break
+
+if not encontrado:
+    print("No se encontró el producto.")
+~~~
+
+`break` permite terminar un ciclo antes de que recorra todos los elementos cuando ya tenemos el resultado.
+
+### Depuración — Clave inexistente
+
+Ejecuta:
+
+~~~python
+producto = {"codigo": "P001", "nombre": "Teclado"}
+
+print(producto["precio"])
+~~~
+
+Observa el error. Corrígelo con `get()` para mostrar un valor predeterminado cuando el precio todavía no esté registrado.
+
+### Reto — Registro de libros
+
+Crea `catalogo_libros.py`.
+
+Guarda al menos tres libros en una lista de diccionarios. Cada libro debe tener código, título, autor y año.
+
+Permite solicitar un código y mostrar los datos del libro encontrado; si no existe, informa que no fue localizado.
+
+Como ampliación, solicita un nuevo libro y comprueba que no se repita su código antes de agregarlo.
+
+### Comprobación
+
+Antes de continuar verifica que puedas explicar cuándo necesitas una lista, cuándo un diccionario y por qué una lista de diccionarios permite manejar varios registros con estructura similar.
+
+---
+
+## Práctica 2.8 — Comprensiones de listas, conjuntos y diccionarios
+
+### Objetivos
+
+Al finalizar esta práctica podrás:
+
+- reconocer la estructura de una comprensión;
+- transformar y filtrar elementos con comprensiones de listas;
+- generar conjuntos de elementos únicos mediante comprensiones;
+- construir diccionarios mediante comprensiones;
+- recorrer colecciones de registros;
+- decidir cuándo un ciclo tradicional es más fácil de leer.
+
+Las comprensiones (*comprehensions*) permiten construir una colección nueva a partir de otra. No reemplazan todos los ciclos: son útiles cuando queremos obtener un resultado que pueda expresarse claramente en una sola construcción.
+
+### 1. Primero con `for`
+
+Crea `cuadrados.py`:
+
+~~~python
+numeros = [1, 2, 3, 4, 5]
+cuadrados = []
+
+for numero in numeros:
+    cuadrados.append(numero ** 2)
+
+print(cuadrados)
+~~~
+
+Resultado:
+
+~~~text
+[1, 4, 9, 16, 25]
+~~~
+
+### 2. La misma operación con una comprensión
+
+~~~python
+numeros = [1, 2, 3, 4, 5]
+cuadrados = [numero ** 2 for numero in numeros]
+
+print(cuadrados)
+~~~
+
+La forma general es:
+
+~~~python
+nueva_lista = [expresion for elemento in coleccion]
+~~~
+
+Se crea una lista nueva; la original permanece igual.
+
+### Ejercicio — Precios con impuesto
+
+Crea `precios_con_impuesto.py`.
+
+Parte de:
+
+~~~python
+precios = [10000, 20000, 50000, 80000]
+~~~
+
+Construye una lista nueva que contenga cada precio aumentado en 19 %. Primero hazlo con `for` y `append()`; después mediante una comprensión.
+
+Comprueba que obtienes resultados equivalentes.
+
+### 3. Filtrar mediante `if`
+
+Crea `filtrar_numeros.py`:
+
+~~~python
+numeros = [3, 8, 12, 5, 20, 7]
+
+mayores = [numero for numero in numeros if numero >= 10]
+
+print(mayores)
+~~~
+
+Resultado:
+
+~~~text
+[12, 20]
+~~~
+
+La condición está al final de la comprensión porque decide qué elementos se incluyen.
+
+### Ejercicio — Notas aprobadas
+
+Parte de:
+
+~~~python
+notas = [2.5, 3.0, 4.8, 1.9, 3.7, 5.0]
+~~~
+
+Construye:
+
+- una lista de notas aprobadas (3.0 o más);
+- otra con notas inferiores a 3.0;
+- otra con todas las notas multiplicadas por 2.
+
+Utiliza tres comprensiones independientes.
+
+### 4. Transformar y filtrar al mismo tiempo
+
+~~~python
+nombres = ["  ana ", "CARLOS", " Laura ", ""]
+
+normalizados = [
+    nombre.strip().title()
+    for nombre in nombres
+    if nombre.strip() != ""
+]
+
+print(normalizados)
+~~~
+
+Resultado:
+
+~~~text
+['Ana', 'Carlos', 'Laura']
+~~~
+
+La transformación aparece al comienzo, antes de `for`; la condición de filtrado aparece al final.
+
+### Ejercicio — Códigos normalizados
+
+Crea `normalizar_codigos.py`.
+
+Parte de:
+
+~~~python
+codigos = [" p001 ", "P002", "", " p003", "  "]
+~~~
+
+Obtén una lista sin elementos vacíos ni espacios sobrantes, con todos los códigos en mayúscula.
+
+### 5. Una condición que produce valores diferentes
+
+No confundas filtrar con transformar condicionalmente.
+
+~~~python
+notas = [2.5, 3.8, 4.1]
+
+estados = ["Aprobado" if nota >= 3.0 else "No aprobado" for nota in notas]
+
+print(estados)
+~~~
+
+Aquí se produce un elemento de salida por cada nota. No se descarta ninguna.
+
+### 6. Comprensión de conjuntos
+
+Las llaves también permiten producir un conjunto:
+
+~~~python
+categorias = ["Periféricos", "Accesorios", "Periféricos", "Componentes"]
+
+unicas = {categoria for categoria in categorias}
+
+print(unicas)
+~~~
+
+Los valores duplicados desaparecen y el orden al imprimir no está garantizado.
+
+### Ejercicio — Categorías distintas
+
+Utiliza una lista de diccionarios:
+
+~~~python
+productos = [
+    {"nombre": "Teclado", "categoria": "Periféricos"},
+    {"nombre": "Mouse", "categoria": "Periféricos"},
+    {"nombre": "Disco", "categoria": "Componentes"}
+]
+~~~
+
+Construye un conjunto con todas las categorías diferentes utilizando una comprensión.
+
+### 7. Comprensión de diccionarios
+
+Una comprensión de diccionario utiliza pares `clave: valor`:
+
+~~~python
+numeros = [1, 2, 3, 4]
+
+cuadrados = {numero: numero ** 2 for numero in numeros}
+
+print(cuadrados)
+~~~
+
+Resultado:
+
+~~~text
+{1: 1, 2: 4, 3: 9, 4: 16}
+~~~
+
+### Ejercicio — Catálogo por código
+
+Parte de:
+
+~~~python
+productos = [
+    {"codigo": "P001", "nombre": "Teclado"},
+    {"codigo": "P002", "nombre": "Mouse"},
+    {"codigo": "P003", "nombre": "Monitor"}
+]
+~~~
+
+Crea un diccionario donde:
+
+- cada clave sea el código;
+- cada valor sea el nombre.
+
+El resultado esperado es:
+
+~~~python
+{"P001": "Teclado", "P002": "Mouse", "P003": "Monitor"}
+~~~
+
+Asume que no hay códigos repetidos. Si los hubiera, una clave repetida conservaría el último valor asociado.
+
+### 8. Comprensión sobre una lista de diccionarios
+
+Partimos de:
+
+~~~python
+productos = [
+    {"nombre": "Teclado", "precio": 85000, "cantidad": 4},
+    {"nombre": "Mouse", "precio": 45000, "cantidad": 0},
+    {"nombre": "Monitor", "precio": 700000, "cantidad": 2}
+]
+~~~
+
+Crea una lista de nombres con existencias:
+
+~~~python
+disponibles = [
+    producto["nombre"]
+    for producto in productos
+    if producto["cantidad"] > 0
+]
+
+print(disponibles)
+~~~
+
+Después calcula:
+
+~~~python
+valores = [
+    producto["precio"] * producto["cantidad"]
+    for producto in productos
+]
+
+print("Valor total:", sum(valores))
+~~~
+
+### Ejercicio — Informes de inventario
+
+Con los datos anteriores construye:
+
+- una lista de productos sin existencias;
+- una lista de nombres con precio superior a $100.000;
+- un conjunto de los valores diferentes de cantidad;
+- un diccionario que relacione nombre y precio.
+
+### 9. Comprensiones anidadas y expresiones generadoras
+
+Una comprensión puede contener más de un `for`.
+
+~~~python
+grupos = [[1, 2], [3, 4], [5, 6]]
+
+numeros = [numero for grupo in grupos for numero in grupo]
+
+print(numeros)
+~~~
+
+Resultado:
+
+~~~text
+[1, 2, 3, 4, 5, 6]
+~~~
+
+**No confundas una comprensión de tupla con una expresión generadora.** Los paréntesis en:
+
+~~~python
+cuadrados = (numero ** 2 for numero in range(1, 5))
+
+print(type(cuadrados))
+print(list(cuadrados))
+~~~
+
+crean un generador, no una tupla. Puedes crear una tupla a partir de ese generador:
+
+~~~python
+tupla_cuadrados = tuple(numero ** 2 for numero in range(1, 5))
+print(tupla_cuadrados)
+~~~
+
+El estudio detallado de generadores se hará más adelante; aquí basta con reconocer la diferencia.
+
+### Depuración — Sintaxis de una comprensión
+
+Corrige este código:
+
+~~~python
+numeros = [1, 2, 3, 4, 5]
+pares = [numero for numero in numeros numero % 2 == 0]
+
+print(pares)
+~~~
+
+Antes de consultar otro ejemplo, identifica qué palabra falta para expresar el filtro.
+
+### Reto — Informe con tres comprensiones
+
+Crea `informe_comprensiones.py`.
+
+Utiliza esta información:
+
+~~~python
+ventas = [
+    {"producto": "Teclado", "categoria": "Periféricos", "total": 150000},
+    {"producto": "Mouse", "categoria": "Periféricos", "total": 70000},
+    {"producto": "Disco SSD", "categoria": "Componentes", "total": 280000},
+    {"producto": "Memoria USB", "categoria": "Accesorios", "total": 45000}
+]
+~~~
+
+Obtén:
+
+1. una lista con los nombres de productos cuyas ventas superen $100.000;
+2. un conjunto de categorías diferentes;
+3. un diccionario que relacione producto y valor de venta;
+4. la suma de todas las ventas utilizando `sum()` sobre una lista de valores.
+
+Primero resuelve una de las transformaciones con un ciclo `for` y después con una comprensión. Compara ambas opciones.
+
+### Comprobación
+
+Antes de continuar asegúrate de entender la diferencia entre:
+
+- una transformación y un filtro;
+- una comprensión de lista (`[]`), una de conjunto (`{}`) y una de diccionario (`{clave: valor}`);
+- una tupla y una expresión generadora;
+- una solución breve y una solución fácil de leer.
+
+No conviertas cualquier ciclo a comprensión por obligación. Si necesitas múltiples pasos, modificar estructuras existentes o mostrar mensajes durante el recorrido, un `for` puede expresar mejor lo que hace el programa.
+
+---
+
+## Práctica 2.9 — Reto integrador: gestor de inventario
+
+Construirás una aplicación de consola que combine condiciones, ciclos, listas, tuplas, conjuntos, diccionarios y comprensiones. El resultado será un inventario pequeño que permite registrar, consultar y actualizar productos.
+
+No utilizarás todavía funciones propias, archivos ni bases de datos. Los datos estarán disponibles solamente mientras el programa permanezca abierto.
 
 ### Objetivo
 
-Crear un gestor de productos con un menú que permanezca disponible hasta que el usuario decida salir.
+Gestionar un inventario en memoria y producir consultas e informes a partir de los registros.
 
-### Archivo de trabajo
+### Datos del programa
 
-Crea:
+Cada producto se representará con un diccionario:
 
-~~~text
-gestor_productos.py
+~~~python
+producto = {
+    "codigo": "P001",
+    "nombre": "Teclado",
+    "categoria": "Periféricos",
+    "precio": 85000.0,
+    "cantidad": 4
+}
 ~~~
 
-### Requisitos
-
-El programa debe mantener una lista de nombres:
+Todos los productos estarán dentro de una lista:
 
 ~~~python
 productos = []
 ~~~
 
-El menú debe mostrar:
+Las categorías permitidas estarán guardadas en una tupla:
+
+~~~python
+CATEGORIAS = ("Periféricos", "Componentes", "Accesorios")
+~~~
+
+En los informes utilizarás conjuntos y comprensiones para obtener información derivada sin cambiar los registros.
+
+### Menú
+
+El programa debe mantener este menú hasta seleccionar `0`:
 
 ~~~text
-=========================
-    GESTOR DE PRODUCTOS
-=========================
-1. Agregar producto
-2. Mostrar productos
-3. Buscar producto
-4. Eliminar producto
-5. Consultar cantidad
+================================
+       GESTOR DE INVENTARIO
+================================
+1. Registrar producto
+2. Listar productos
+3. Buscar por código
+4. Actualizar existencias
+5. Eliminar producto
+6. Consultar productos sin stock
+7. Resumen del inventario
 0. Salir
 ~~~
 
-#### Opción 1 — Agregar producto
+### Reglas de funcionamiento
 
-Solicita un nombre y aplica estas reglas:
+**Registrar producto.** Solicita código, nombre, categoría, precio y cantidad. No permitas códigos repetidos ni campos de texto vacíos. La categoría debe estar en `CATEGORIAS`, el precio debe ser mayor que cero y la cantidad no puede ser negativa.
 
-- no aceptar nombres vacíos;
-- no registrar un nombre que ya exista;
-- agregar los nombres válidos a la lista;
-- informar si el registro fue exitoso.
+**Listar productos.** Muestra código, nombre, categoría, precio y cantidad de cada producto. Si la lista está vacía, informa que no hay registros.
 
-Para este primer gestor se considerarán duplicados los nombres escritos exactamente igual. La comparación sin distinguir mayúsculas será un reto de ampliación.
+**Buscar por código.** Solicita un código y muestra los datos del producto encontrado; si no existe, informa al usuario.
 
-#### Opción 2 — Mostrar productos
+**Actualizar existencias.** Busca un producto por código y solicita la nueva cantidad disponible. Rechaza números negativos. No necesitas sumar o restar movimientos: en esta versión se reemplaza la cantidad actual por la nueva.
 
-Muestra los productos numerados a partir de 1.
+**Eliminar producto.** Busca por código, elimina el diccionario correspondiente de la lista si existe y confirma la operación. Si no existe, muestra un mensaje sin producir error.
 
-Si la lista está vacía, muestra:
+**Productos sin stock.** Muestra los nombres de los productos cuya cantidad sea cero. Utiliza una comprensión de lista.
 
-~~~text
-No hay productos registrados.
-~~~
+**Resumen del inventario.** Muestra cantidad de productos registrados, unidades disponibles en total, valor económico del inventario y categorías efectivamente utilizadas. Utiliza una comprensión de conjunto para las categorías.
 
-#### Opción 3 — Buscar producto
+### Antes de escribir el programa
 
-Solicita un nombre e indica si está registrado.
-
-No agregues ni elimines elementos durante la búsqueda.
-
-#### Opción 4 — Eliminar producto
-
-Solicita el nombre que se desea eliminar.
-
-- Si existe, elimínalo y confirma la operación.
-- Si no existe, informa que no fue encontrado.
-- No debe fallar cuando la lista esté vacía.
-
-#### Opción 5 — Consultar cantidad
-
-Muestra la cantidad de productos registrados utilizando `len()`.
-
-#### Opción 0 — Salir
-
-Finaliza el programa con un mensaje de despedida.
-
-Cualquier opción diferente debe mostrar:
-
-~~~text
-Opción no válida.
-~~~
-
-### Antes de programar
-
-Haz un pequeño esquema en comentarios:
+Dibuja la estructura en comentarios:
 
 ~~~python
-# Crear lista vacía
-# Mientras no se seleccione salir:
-#     Mostrar menú
-#     Leer opción
-#     Según la opción:
-#         Agregar
-#         Mostrar
-#         Buscar
-#         Eliminar
-#         Consultar cantidad
+# Lista de diccionarios para productos
+# Tupla de categorías válidas
+# Ciclo del menú
+#   Registrar
+#   Listar
+#   Buscar
+#   Actualizar
+#   Eliminar
+#   Filtrar sin stock
+#   Mostrar resumen
 ~~~
 
-Piensa qué operaciones modifican la lista y cuáles solamente consultan su contenido.
+Identifica qué opciones cambian la lista y cuáles solamente leen información.
 
 ### Construcción por etapas
 
-**Etapa 1. Menú.** Crea un ciclo `while` que muestre las opciones y termine con `0`. No programes todavía las otras operaciones.
+**Etapa 1 — Menú.** Crea el `while` y confirma que la opción 0 termina la ejecución.
 
-**Etapa 2. Registro.** Agrega el código de la opción 1. Comprueba qué ocurre con un nombre válido, un nombre vacío y uno repetido.
+**Etapa 2 — Registro.** Solicita datos, verifica las reglas y agrega un diccionario a la lista.
 
-**Etapa 3. Listado.** Muestra todos los nombres usando `for` y `enumerate()`. Prepara un mensaje cuando no haya productos.
+**Etapa 3 — Listado y búsqueda.** Recorre la lista de diccionarios, primero para mostrarlos y luego para localizar un código.
 
-**Etapa 4. Búsqueda.** Utiliza `in` para comprobar si el nombre ingresado ya existe.
+**Etapa 4 — Actualización y eliminación.** Trabaja con el diccionario encontrado. Comprueba qué ocurre cuando el código no existe.
 
-**Etapa 5. Eliminación.** Comprueba la existencia del producto antes de utilizar `remove()`.
+**Etapa 5 — Informes.** Aplica comprensiones de listas y conjuntos para construir consultas.
 
-**Etapa 6. Conteo.** Muestra el valor devuelto por `len()`.
-
-Ejecuta el programa después de terminar cada etapa. Es más fácil encontrar un error cuando sabes qué parte acabas de modificar.
+Después de cada etapa realiza una ejecución completa. Si algo falla, revisa la operación que acabas de incorporar.
 
 ### Esqueleto inicial
 
-Puedes comenzar con este código. Los comportamientos del menú están pendientes:
+Crea `gestor_inventario.py`:
 
 ~~~python
+CATEGORIAS = ("Periféricos", "Componentes", "Accesorios")
+
 productos = []
 opcion = ""
 
 while opcion != "0":
     print()
-    print("=========================")
-    print("    GESTOR DE PRODUCTOS")
-    print("=========================")
-    print("1. Agregar producto")
-    print("2. Mostrar productos")
-    print("3. Buscar producto")
-    print("4. Eliminar producto")
-    print("5. Consultar cantidad")
+    print("================================")
+    print("       GESTOR DE INVENTARIO")
+    print("================================")
+    print("1. Registrar producto")
+    print("2. Listar productos")
+    print("3. Buscar por código")
+    print("4. Actualizar existencias")
+    print("5. Eliminar producto")
+    print("6. Consultar productos sin stock")
+    print("7. Resumen del inventario")
     print("0. Salir")
 
     opcion = input("Opción: ").strip()
 
     if opcion == "1":
-        # Registrar producto
+        # Registrar y validar un diccionario
         pass
     elif opcion == "2":
-        # Mostrar productos
+        # Recorrer y mostrar productos
         pass
     elif opcion == "3":
-        # Buscar producto
+        # Buscar por código
         pass
     elif opcion == "4":
-        # Eliminar producto
+        # Actualizar cantidad
         pass
     elif opcion == "5":
-        # Mostrar cantidad
+        # Eliminar producto
+        pass
+    elif opcion == "6":
+        # Filtrar los productos sin existencias
+        pass
+    elif opcion == "7":
+        # Calcular y mostrar el resumen
         pass
     elif opcion == "0":
         print("Programa finalizado.")
@@ -1111,154 +2142,173 @@ while opcion != "0":
         print("Opción no válida.")
 ~~~
 
-`pass` permite dejar temporalmente vacío un bloque de código. Debes sustituirlo por la operación correspondiente a cada opción.
+`pass` solamente mantiene la estructura mientras construyes cada operación. Sustitúyelo con tu código.
 
 ### Pistas
 
-Para guardar un nombre:
+**Comprobar códigos repetidos.** Puedes recorrer la lista y comparar `producto["codigo"]` con el código ingresado.
+
+**Buscar.** Conserva una referencia al diccionario cuando encuentres el código:
 
 ~~~python
-productos.append(nombre)
+encontrado = None
+
+for producto in productos:
+    if producto["codigo"] == codigo_buscado:
+        encontrado = producto
+        break
 ~~~
 
-Para comprobar si ya existe:
+Después comprueba `encontrado is not None` antes de trabajar con él.
+
+**Filtrar sin existencias.** Usa una comprensión:
 
 ~~~python
-if nombre in productos:
-    print("El producto ya existe.")
+agotados = [
+    producto["nombre"]
+    for producto in productos
+    if producto["cantidad"] == 0
+]
 ~~~
 
-Para mostrar elementos numerados:
+**Categorías utilizadas.** Utiliza un conjunto:
 
 ~~~python
-for numero, producto in enumerate(productos, start=1):
-    print(numero, "-", producto)
+categorias_utilizadas = {
+    producto["categoria"]
+    for producto in productos
+}
 ~~~
 
-Para eliminar un nombre que exista:
+**Valor del inventario.** Para cada producto, multiplica precio por cantidad y suma esos subtotales. Puedes hacerlo con un acumulador dentro de `for` o con `sum()` y una comprensión.
 
-~~~python
-productos.remove(nombre)
-~~~
-
-No copies todas las pistas en una sola opción. Decide dónde corresponde utilizar cada una.
+Los errores de conversión numérica por entradas como `abc` todavía quedan fuera del alcance. El programa debe validar las reglas indicadas suponiendo que, cuando se solicita un número, el usuario introduce un valor numérico.
 
 ### Ejemplo de ejecución
 
 ~~~text
-=========================
-    GESTOR DE PRODUCTOS
-=========================
-1. Agregar producto
-2. Mostrar productos
-3. Buscar producto
-4. Eliminar producto
-5. Consultar cantidad
-0. Salir
 Opción: 1
-Nombre del producto: Teclado
+Código: P001
+Nombre: Teclado
+Categoría: Periféricos
+Precio: 85000
+Cantidad: 4
 Producto registrado.
 
 Opción: 1
-Nombre del producto: Mouse
+Código: P002
+Nombre: Mouse
+Categoría: Periféricos
+Precio: 45000
+Cantidad: 0
 Producto registrado.
 
 Opción: 2
-1 - Teclado
-2 - Mouse
+P001 - Teclado - Periféricos - $85000.0 - 4 unidades
+P002 - Mouse - Periféricos - $45000.0 - 0 unidades
 
-Opción: 3
-Producto a buscar: Mouse
-Producto encontrado.
+Opción: 6
+Sin existencias:
+- Mouse
 
-Opción: 5
-Cantidad de productos: 2
-
-Opción: 4
-Producto a eliminar: Teclado
-Producto eliminado.
-
-Opción: 2
-1 - Mouse
+Opción: 7
+Productos: 2
+Unidades: 4
+Valor del inventario: $340000.0
+Categorías utilizadas: Periféricos
 
 Opción: 0
 Programa finalizado.
 ~~~
 
-No es necesario que el texto de todos los mensajes coincida exactamente. Lo importante es que el programa cumpla las reglas.
-
 ### Pruebas obligatorias
 
-Prueba al menos los siguientes escenarios y verifica que el resultado sea coherente.
-
-| Escenario | Resultado esperado |
+| Prueba | Comportamiento esperado |
 |---|---|
-| Mostrar sin haber registrado productos | Mensaje de lista vacía |
-| Registrar `Teclado` | Se agrega a la lista |
-| Registrar nuevamente `Teclado` | Se rechaza por duplicado |
-| Registrar solamente espacios | Se rechaza como nombre vacío |
-| Registrar `Mouse` y `Monitor` | La lista contiene tres productos distintos |
-| Buscar `Mouse` | Producto encontrado |
-| Buscar `Impresora` | Producto no encontrado |
-| Eliminar `Mouse` | Se elimina y disminuye la cantidad |
-| Eliminar `Impresora` | Mensaje informativo, sin error |
-| Elegir `9` | Opción no válida |
-| Elegir `0` | El programa termina |
+| Listar sin productos | Mostrar mensaje de inventario vacío |
+| Registrar P001 | Se agrega |
+| Registrar P001 nuevamente | Rechazar código repetido |
+| Registrar nombre vacío o solo espacios | Rechazar |
+| Registrar categoría fuera de la tupla | Rechazar |
+| Registrar precio negativo | Rechazar |
+| Registrar cantidad negativa | Rechazar |
+| Registrar cantidad cero | Aceptar como producto sin stock |
+| Buscar P001 | Mostrar su registro |
+| Buscar código desconocido | Informar que no existe |
+| Actualizar a 10 unidades | Cambiar solamente la cantidad |
+| Actualizar a -3 unidades | Conservar la cantidad anterior |
+| Eliminar un producto existente | Borrar el registro |
+| Eliminar código inexistente | No fallar |
+| Consultar resumen | Reflejar los datos actuales |
+| Salir | Finalizar el ciclo |
 
-Al hacer las pruebas, vuelve varias veces al listado y al conteo para comprobar que el estado de la lista corresponda con las operaciones realizadas.
+### Comprobación numérica
 
-### Revisión del código
+Para estos productos:
 
-Antes de terminar revisa:
+| Código | Precio | Cantidad | Categoría |
+|---|---:|---:|---|
+| P001 | 85.000 | 4 | Periféricos |
+| P002 | 45.000 | 0 | Periféricos |
+| P003 | 700.000 | 2 | Componentes |
 
-- ¿el menú vuelve a aparecer después de cada operación?
-- ¿la lista se crea una sola vez, antes del ciclo?
-- ¿los nombres vacíos y repetidos se rechazan?
-- ¿se puede mostrar una lista vacía sin errores?
-- ¿la búsqueda no modifica la lista?
-- ¿la eliminación comprueba primero que el producto exista?
-- ¿el número mostrado por la opción 5 coincide con los elementos registrados?
-- ¿el programa termina al seleccionar `0`?
-- ¿puedes explicar qué hace cada bloque de código?
+El programa debe mostrar:
+
+- 3 productos registrados;
+- 6 unidades;
+- valor total de inventario de $1.740.000;
+- 2 categorías utilizadas;
+- P002 como producto sin stock.
+
+Calcula estos resultados manualmente antes de ejecutar.
 
 ### Reto de ampliación
 
-Si ya terminaste las pruebas, agrega una o varias mejoras:
+Si todas las pruebas anteriores funcionan:
 
-**Búsqueda sin importar mayúsculas.** Permite encontrar `Teclado` cuando el usuario escriba `teclado`. Revisa cómo utilizar `lower()` dentro de un recorrido de la lista sin modificar los nombres almacenados.
-
-**Mostrar la lista ordenada.** Investiga la función `sorted()` y presenta una versión alfabética sin alterar necesariamente el orden original de registro.
-
-**Renombrar producto.** Agrega una opción para modificar el nombre de un producto existente. Comprueba que el nuevo nombre no esté vacío ni cause un duplicado exacto.
-
-Estas ampliaciones son opcionales; no necesitan resolverlas para completar las funciones principales.
+1. agrega una opción para aumentar o disminuir existencias mediante una operación, sin permitir que queden negativas;
+2. muestra los productos ordenados por nombre sin cambiar la lista original;
+3. crea un diccionario mediante comprensión que relacione código y nombre;
+4. permite buscar productos por categoría;
+5. muestra cuál es el producto con mayor valor de inventario (`precio * cantidad`).
 
 ### Depuración
 
-Haz una copia de `gestor_productos.py` e introduce, uno por uno, estos problemas:
+Crea una copia del programa. Provoca y corrige:
 
-1. vuelve a crear `productos = []` dentro del `while`;
-2. intenta eliminar un nombre inexistente sin comprobarlo primero;
-3. cambia una comparación `==` por una asignación `=` dentro de un `if`;
-4. elimina la actualización de la opción que permite salir.
+- un ciclo que recrea `productos = []` en cada vuelta;
+- un intento de consultar una clave inexistente;
+- un código que duplica registros;
+- una condición que permite una cantidad negativa;
+- un informe que calcula mal el total al sumar precios sin multiplicar por cantidades.
 
-Corrige cada problema y registra en un comentario qué comportamiento observaste.
+Escribe un comentario breve que explique la causa de cada error.
+
+### Revisión del código
+
+Comprueba que:
+
+- la lista de productos no se reinicia dentro del menú;
+- cada producto es un diccionario con las mismas claves;
+- las categorías permitidas se mantienen en una tupla;
+- los códigos no se duplican;
+- las consultas no cambian registros;
+- las actualizaciones conservan los demás campos;
+- el informe utiliza valores actuales del inventario;
+- puedes explicar por qué utilizaste listas, tuplas, conjuntos y diccionarios en distintas partes.
 
 ---
 
 ## Cierre del laboratorio
 
-Al finalizar deberías poder:
+Al finalizar deberías poder utilizar decisiones, condiciones compuestas y ciclos para construir un programa de consola; trabajar con listas, tuplas, conjuntos y diccionarios; reconocer cuáles estructuras pueden modificarse; recorrer colecciones anidadas; crear comprensiones de listas, conjuntos y diccionarios; y comprobar que los resultados de una aplicación coincidan con las reglas indicadas.
 
-- utilizar `if`, `elif` y `else`;
-- construir condiciones con `and`, `or` y `not`;
-- validar datos antes de realizar una operación;
-- repetir instrucciones con `for` y `while`;
-- trabajar con `range()`, contadores y acumuladores;
-- crear listas y agregar elementos;
-- recorrer listas y consultar su cantidad;
-- buscar y eliminar valores;
-- mantener activo un menú de consola;
-- comprobar distintos escenarios y corregir errores.
+Conserva `gestor_inventario.py`. En el siguiente laboratorio podrás reorganizar esta aplicación en funciones con parámetros y valores de retorno, y trabajar con una estructura de código más sencilla de mantener.
 
-Conserva `gestor_productos.py`. En el próximo laboratorio lo reorganizarás mediante funciones y comenzarás a representar productos con más de un dato.
+### Consulta adicional
+
+- [Tutorial oficial de Python — Estructuras de datos](https://docs.python.org/3/tutorial/datastructures.html)
+- [Documentación de Python — Tipos integrados](https://docs.python.org/3/library/stdtypes.html)
+- [Documentación de Python — Módulo collections](https://docs.python.org/3/library/collections.html)
+
+El módulo `collections` ofrece otras estructuras especializadas, como `deque` y `Counter`, que puedes consultar más adelante. En este laboratorio trabajamos las colecciones integradas `list`, `tuple`, `set` y `dict`, que son la base para entenderlas.
