@@ -1699,7 +1699,7 @@ Explica cómo utilizarías el historial de commits de GitHub para identificar el
 
 En cada respuesta explica **qué harías, por qué, cómo lo implementarías y cómo comprobarías que funciona**. Relaciona tus respuestas con el código desarrollado y, cuando corresponda, con commits reales.
 
-### 5. Entrega en Moodle
+### 5. Entrega del laboratorio
 
 Adjunta el informe PDF y proporciona el enlace al repositorio personal de GitHub.
 
