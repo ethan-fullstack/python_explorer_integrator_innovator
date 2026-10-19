@@ -6,7 +6,7 @@ El propósito principal es comprender **cómo se aplica Scrum**, no memorizar un
 
 > **Alcance del ejemplo.** Los nombres de integrantes, historias, números de Issues y Pull Requests y registros de seguimiento que aparecen en este documento son **simulados**. No describen actividad real en GitHub. En un repositorio auténtico, los números, las fechas y los autores se generan o registran mientras ocurre el trabajo; no deben inventarse posteriormente.
 
-> **Convención de idioma.** Las explicaciones pedagógicas están en español. Los nombres de archivos, clases, funciones, variables, ramas, mensajes de commits y ejemplos de Issues y Pull Requests están en inglés, como en un proyecto de software con convenciones técnicas consistentes.
+> **Convención de idioma.** Las explicaciones, los objetivos, las historias de usuario, los criterios de aceptación, los acuerdos Scrum, los registros de seguimiento y las descripciones de Issues y Pull Requests están en español. Los identificadores del código, los nombres de archivos, funciones, variables y ramas, los comandos y los mensajes de commit se conservan en inglés.
 
 ## Vista general de la simulación
 
@@ -52,7 +52,7 @@ Una lista de funciones no equivale todavía a una visión del producto. El objet
 
 ### 1.2. Product Goal
 
-> **Product Goal:** Provide a reliable console-based tool to register shared resources, track loans and returns, and recover inventory data between sessions.
+> **Product Goal:** Proporcionar una aplicación de consola confiable para registrar recursos compartidos, controlar préstamos y devoluciones, y recuperar los datos del inventario entre sesiones.
 
 Este compromiso del Product Backlog expresa un resultado deseado y orienta su orden. Las historias de usuario son medios para alcanzarlo.
 
@@ -148,13 +148,13 @@ El Product Owner presenta una propuesta y la conversa con el equipo. Para este s
 
 | Issue ficticio | Título en GitHub | Prioridad | Sprint inicialmente previsto |
 |---|---|---|---|
-| #11 | `Register resources` | Alta | Sprint 1 |
-| #12 | `List resources and availability` | Alta | Sprint 1 |
-| #13 | `Check out a resource` | Alta | Sprint 2 |
-| #14 | `Return a borrowed resource` | Alta | Sprint 2 |
-| #15 | `Persist inventory state in JSON` | Alta | Sprint 3 |
-| #16 | `Export resource report to CSV` | Media | Sprint 3 |
-| #17 | `Harden console input and add regression tests` | Alta | Sprint 3 |
+| #11 | `Registrar recursos` | Alta | Sprint 1 |
+| #12 | `Consultar recursos y disponibilidad` | Alta | Sprint 1 |
+| #13 | `Registrar un préstamo de recurso` | Alta | Sprint 2 |
+| #14 | `Registrar la devolución de un recurso` | Alta | Sprint 2 |
+| #15 | `Conservar el estado del inventario en JSON` | Alta | Sprint 3 |
+| #16 | `Exportar el reporte de recursos a CSV` | Media | Sprint 3 |
+| #17 | `Fortalecer la validación de entradas y agregar pruebas de regresión` | Alta | Sprint 3 |
 
 Los identificadores `#11` a `#17` solo ilustran cómo se verían en GitHub. La plataforma asignará los números reales.
 
@@ -165,28 +165,28 @@ Las historias describen capacidades observables; actividades como «crear clase�
 El equipo documenta la historia de préstamo de este modo:
 
 ~~~markdown
-# Check out a resource
+# Registrar un préstamo de recurso
 
-As a resource manager,
-I want to register a loan for an available resource,
-so that I can track who borrowed it and update availability.
+Como responsable de los recursos,
+quiero registrar el préstamo de un recurso disponible,
+para saber quién lo tiene prestado y mantener actualizada la disponibilidad.
 
-## Acceptance criteria
+## Criterios de aceptación
 
-- The resource must already exist.
-- The borrower name cannot be blank.
-- A loan is rejected when no units are available.
-- A successful loan reduces available units by exactly one.
-- Every accepted loan receives a unique identifier.
-- A rejected loan does not change resources or loan history.
+- El recurso debe existir previamente.
+- El nombre de quien solicita el préstamo no puede estar vacío.
+- Se rechaza el préstamo cuando no hay unidades disponibles.
+- Un préstamo válido reduce exactamente en una unidad la disponibilidad.
+- Cada préstamo aceptado recibe un identificador único.
+- Un préstamo rechazado no modifica el estado de los recursos ni el historial.
 
-## Technical tasks
+## Tareas técnicas
 
-- [ ] Implement the Loan model.
-- [ ] Implement the Inventory.checkout() operation.
-- [ ] Handle invalid requests in the console.
-- [ ] Add successful and rejected loan tests.
-- [ ] Link the pull request and verification results.
+- [ ] Implementar el modelo `Loan`.
+- [ ] Implementar la operación `Inventory.checkout()`.
+- [ ] Manejar las solicitudes inválidas desde la consola.
+- [ ] Agregar pruebas de préstamos aceptados y rechazados.
+- [ ] Vincular el Pull Request y los resultados de las pruebas.
 ~~~
 
 **Por qué sirve cada elemento:**
@@ -203,17 +203,17 @@ El Issue debe existir antes de comenzar el trabajo relacionado. Si el conocimien
 Antes de desarrollar, el equipo acuerda esta Definition of Done:
 
 ~~~markdown
-# Definition of Done
+# Definición de Terminado (Definition of Done)
 
-A backlog item is Done only when:
+Un elemento del Product Backlog solo puede marcarse como `Done` cuando:
 
-- Acceptance criteria have been verified.
-- Code is understandable and follows the project structure.
-- Relevant tests have passed.
-- Changes are integrated into the main branch.
-- Documentation reflects the delivered behavior.
-- The issue links to the corresponding implementation and tests.
-- Every team member can explain the technical decisions.
+- Se han verificado sus criterios de aceptación.
+- El código es comprensible y respeta la estructura del proyecto.
+- Las pruebas correspondientes se han ejecutado satisfactoriamente.
+- Los cambios están integrados en la rama `main`.
+- La documentación describe el comportamiento realmente entregado.
+- El Issue está vinculado con la implementación y las pruebas correspondientes.
+- Todos los integrantes del equipo pueden explicar las decisiones técnicas.
 ~~~
 
 La Definition of Done no se reinventa para justificar cada historia. Es un compromiso compartido de calidad para el incremento.
@@ -241,13 +241,13 @@ La columna `Done` del tablero es una representación visual: **no sustituye** la
 Ejemplo del recorrido de una historia:
 
 ~~~text
-Issue #13: Check out a resource
+Issue #13: Registrar un préstamo de recurso
     |
     v
-Technical tasks and acceptance criteria
+Tareas técnicas y criterios de aceptación
     |
     v
-Branch: feature/13-resource-checkout
+Rama: feature/13-resource-checkout
     |
     v
 Commit: feat: validate resource checkout
@@ -256,7 +256,7 @@ Commit: feat: validate resource checkout
 Pull request #21: feat: add resource checkout
     |
     v
-Tests + review + merge into main
+Pruebas + revisión + integración en main
     |
     v
 Issue #13: Done
@@ -285,16 +285,16 @@ Los archivos deben existir y contener cambios reales antes de ejecutar estos com
 
 El equipo acuerda:
 
-> **Sprint Goal:** Build a usable in-memory catalog of resources with validated quantities.
+> **Sprint Goal:** Construir un catálogo funcional de recursos en memoria, con cantidades validadas.
 
 Selecciona las historias `#11` y `#12` y prepara un Sprint Backlog:
 
 | Tarea | Historia | Responsable principal | Estado inicial |
 |---|---|---|---|
-| Define resource fields and validation | #11 | Alex | Todo |
-| Implement catalog registration | #11 | Sam | Todo |
-| Implement resource listing | #12 | Taylor | Todo |
-| Test duplicates and invalid quantities | #11, #12 | Equipo | Todo |
+| Definir los atributos del recurso y sus validaciones | #11 | Alex | Todo |
+| Implementar el registro de recursos | #11 | Sam | Todo |
+| Implementar la consulta del catálogo | #12 | Taylor | Todo |
+| Probar códigos duplicados y cantidades inválidas | #11, #12 | Equipo | Todo |
 
 La persona responsable principal facilita coordinación; las demás también programan, revisan y prueban.
 
@@ -340,15 +340,15 @@ La separación importa: `Resource` controla las reglas de cada recurso; `Invento
 El equipo mueve historias y tareas al estado real correspondiente. Un historial ilustrativo sería:
 
 ~~~text
-Branch: feature/11-register-resources
+Rama: feature/11-register-resources
 Commit: feat: add resource validation
 PR #19: feat: register resources
-Linked issue: Closes #11
+Issue relacionado: Closes #11
 
-Branch: feature/12-list-resources
+Rama: feature/12-list-resources
 Commit: feat: list resources with availability
 PR #20: feat: display resource catalog
-Linked issue: Closes #12
+Issue relacionado: Closes #12
 ~~~
 
 Las referencias son simuladas. En un proyecto real, el equipo verificaría que el PR incorpore los archivos correctos, que la aplicación funcione y que los criterios de aceptación estén cumplidos antes de fusionarlo.
@@ -360,20 +360,20 @@ En el caso ficticio, el equipo detecta que los códigos duplicados todavía se a
 Registro de ejemplo:
 
 ~~~markdown
-# Sprint 1 — Daily Scrum (SIMULATED)
+# Sprint 1 — Daily Scrum (SIMULACIÓN)
 
-Sprint Goal: Build a usable resource catalog.
+Sprint Goal: Construir un catálogo funcional de recursos.
 
-Progress:
-- Resource fields and validation are implemented.
-- Listing works with multiple resources.
+Avances:
+- Se implementaron los atributos y las validaciones de los recursos.
+- La consulta funciona con varios recursos.
 
-Impediment:
-- Duplicate resource codes were accepted.
+Impedimento:
+- Se aceptaban códigos de recurso duplicados.
 
-Adaptation:
-- Add duplicate-code validation and a regression test
-  before merging the registration pull request.
+Adaptación:
+- Incorporar la validación de códigos duplicados y una prueba de regresión
+  antes de fusionar el Pull Request de registro.
 ~~~
 
 Es útil registrar **qué decisión cambió**, no solo una lista de actividades realizadas.
@@ -384,7 +384,7 @@ En la Sprint Review el equipo demuestra que puede registrar varios recursos, con
 
 En la Sprint Retrospective acuerda una mejora:
 
-> **Improvement:** Write a failing-case test whenever a validation rule is added.
+> **Mejora acordada:** Incorporar una prueba de rechazo cada vez que se agregue una regla de validación.
 
 Esta mejora afectará el modo de trabajar del siguiente sprint. La Review inspeccionó el producto; la Retrospective examinó el proceso del equipo.
 
@@ -396,7 +396,7 @@ Esta mejora afectará el modo de trabajar del siguiente sprint. La Review inspec
 
 El equipo plantea:
 
-> **Sprint Goal:** Track loans and returns without losing consistency in available units.
+> **Sprint Goal:** Registrar préstamos y devoluciones sin perder la coherencia de las unidades disponibles.
 
 Selecciona `#13` y `#14`. El Product Backlog prioriza estas historias porque no existe seguimiento de préstamos si solo se registra un catálogo.
 
@@ -409,12 +409,12 @@ El sistema verifica que el recurso exista, que haya disponibilidad y que la pers
 La regla crítica es:
 
 ~~~text
-Before checkout:
+Antes del préstamo:
   total_units = 3
   available_units = 3
   active_loans = 0
 
-After one successful checkout:
+Después de un préstamo válido:
   total_units = 3
   available_units = 2
   active_loans = 1
@@ -448,28 +448,28 @@ El error no debe ocultarse moviendo `#14` a `Done`.
 El seguimiento registrado podría ser:
 
 ~~~markdown
-# Sprint 2 — Daily Scrum (SIMULATED)
+# Sprint 2 — Daily Scrum (SIMULACIÓN)
 
-Sprint Goal: Track loans and returns safely.
+Sprint Goal: Controlar préstamos y devoluciones de forma segura.
 
-Progress:
-- Checkout is implemented and tested.
-- Return flow works for the first request.
+Avances:
+- El registro de préstamos está implementado y probado.
+- La devolución funciona en el primer intento.
 
-Impediment:
-- Repeated returns can produce inconsistent availability.
+Impedimento:
+- Una devolución repetida puede generar una disponibilidad incorrecta.
 
-Decision:
-- Keep Issue #14 In Progress.
-- Add a test for repeated returns.
-- Do not merge the return pull request as completed.
+Decisión:
+- Mantener el Issue #14 en `In Progress`.
+- Agregar una prueba de devoluciones repetidas.
+- No fusionar el Pull Request de devolución como si estuviera terminado.
 ~~~
 
 En la **Sprint Review**, el equipo demuestra lo terminado: `#13` permite registrar préstamos y rechaza operaciones sin disponibilidad. Explica que `#14` sigue pendiente por el defecto identificado.
 
 En la **Sprint Retrospective**, acuerda:
 
-> **Improvement:** Test repeated state-changing operations before review.
+> **Mejora acordada:** Probar operaciones repetidas que modifican el estado antes de solicitar la revisión.
 
 Al inspeccionar la situación, el Product Owner conserva `#14` en el Product Backlog para volver a considerarla durante la siguiente planificación. El equipo no declara un incremento ficticio ni cambia fechas o commits para aparentar cumplimiento.
 
@@ -481,7 +481,7 @@ Al inspeccionar la situación, el Product Owner conserva `#14` en el Product Bac
 
 Con la información aprendida, el equipo propone:
 
-> **Sprint Goal:** Deliver a recoverable, verified loan-tracking application with useful reports.
+> **Sprint Goal:** Entregar una aplicación de préstamos verificada, capaz de recuperar datos y generar reportes útiles.
 
 El Sprint Backlog incluye `#14` (pendiente), `#15` (JSON), `#16` (CSV) y `#17` (errores y pruebas). La selección exige revisar su capacidad real y reducir alcance si hace falta; no autoriza ignorar la calidad.
 
@@ -507,10 +507,10 @@ Ahora se verifica tanto el caso correcto como el repetido. Solo después se revi
 En GitHub podría existir:
 
 ~~~text
-Branch: fix/14-prevent-double-return
+Rama: fix/14-prevent-double-return
 Commit: fix: reject repeated loan returns
 PR #23: fix: prevent returning a loan twice
-Linked issue: Closes #14
+Issue relacionado: Closes #14
 ~~~
 
 El identificador de historia permanece igual. El hecho de trasladarla al sprint siguiente no obliga a inventar una historia nueva.
@@ -590,18 +590,18 @@ Una retroalimentación **simulada** solicita buscar préstamos por nombre de per
 La Retrospective identifica qué mejoró y qué debe conservarse:
 
 ~~~markdown
-# Sprint 3 — Retrospective (SIMULATED)
+# Sprint 3 — Sprint Retrospective (SIMULACIÓN)
 
-What improved:
-- Tests were added before merging changes.
-- Data validation prevents inconsistent JSON state.
-- Pull requests link implementation and verification.
+Qué mejoró:
+- Las pruebas se agregaron antes de integrar los cambios.
+- La validación de datos evita estados inconsistentes en JSON.
+- Los Pull Requests relacionan la implementación con su verificación.
 
-What needs improvement:
-- Review error messages with users earlier.
+Qué debe mejorar:
+- Revisar los mensajes de error con las personas usuarias desde etapas anteriores.
 
-Follow-up:
-- Add acceptance examples for invalid input to future stories.
+Acción de mejora:
+- Agregar ejemplos de entradas inválidas a los criterios de aceptación de futuras historias.
 ~~~
 
 El cierre no elimina trabajo pendiente ni convierte automáticamente nuevas ideas en funcionalidades del incremento.
@@ -632,24 +632,24 @@ GitHub Projects **no implementa Scrum por sí solo**: visualiza el trabajo. La c
 ~~~markdown
 # fix: prevent returning a loan twice
 
-## Related issue
+## Issue relacionado
 Closes #14
 
-## Why
-A second return could incorrectly modify available units.
+## Motivo
+Una segunda devolución podía modificar incorrectamente las unidades disponibles.
 
-## Changes
-- Reject already returned loans.
-- Preserve inventory state when the request is invalid.
-- Add a regression test for repeated returns.
+## Cambios realizados
+- Rechazar préstamos que ya fueron devueltos.
+- Conservar el estado del inventario cuando la solicitud sea inválida.
+- Agregar una prueba de regresión para devoluciones repetidas.
 
-## Verification
-- Run: python -m unittest discover -s tests -v
-- Confirm that a second return raises ValueError.
-- Confirm that available units remain unchanged.
+## Verificación
+- Ejecutar: `python -m unittest discover -s tests -v`.
+- Comprobar que una segunda devolución produce `ValueError`.
+- Comprobar que la disponibilidad permanece sin cambios.
 
-## Review notes
-The fix does not change successful checkout behavior.
+## Observaciones de revisión
+La corrección no modifica el funcionamiento de los préstamos válidos.
 ~~~
 
 **Por qué es un buen PR:** identifica el problema, el cambio, la relación con la historia y la manera de verificarlo. No utiliza descripciones genéricas como «cambios finales».
@@ -660,13 +660,13 @@ El registro de la simulación podría consolidarse así:
 
 | Historia | Sprint planificado | Sprint de finalización | Estado final | Evidencia simulada |
 |---|---|---|---|---|
-| #11 Register resources | 1 | 1 | Done | PR #19 |
-| #12 List resources and availability | 1 | 1 | Done | PR #20 |
-| #13 Check out a resource | 2 | 2 | Done | PR #21 |
-| #14 Return a borrowed resource | 2 | 3 | Done | PR #23 |
-| #15 Persist inventory state in JSON | 3 | 3 | Done | PR #24 |
-| #16 Export resource report to CSV | 3 | 3 | Done | PR #25 |
-| #17 Harden console input and add regression tests | 3 | 3 | Done | PR #26 |
+| #11 Registrar recursos | 1 | 1 | Done | PR #19 |
+| #12 Consultar recursos y disponibilidad | 1 | 1 | Done | PR #20 |
+| #13 Registrar un préstamo de recurso | 2 | 2 | Done | PR #21 |
+| #14 Registrar la devolución de un recurso | 2 | 3 | Done | PR #23 |
+| #15 Conservar el estado del inventario en JSON | 3 | 3 | Done | PR #24 |
+| #16 Exportar el reporte de recursos a CSV | 3 | 3 | Done | PR #25 |
+| #17 Fortalecer la validación de entradas y agregar pruebas de regresión | 3 | 3 | Done | PR #26 |
 
 Los datos son inventados **para explicar el formato**, no para mostrar actividad real. En un proyecto verdadero, la columna de evidencias debe enlazar a registros existentes.
 
@@ -803,9 +803,9 @@ geartrack/
 ├── tests/
 │   └── test_inventory.py
 ├── data/
-│   └── state.json          # Created when saving
+│   └── state.json          # Se genera al guardar
 └── reports/
-    └── resources.csv      # Created when exporting
+    └── resources.csv      # Se genera al exportar
 ~~~
 
 Los archivos JSON y CSV se generan mediante la aplicación. No es necesario crearlos manualmente.
