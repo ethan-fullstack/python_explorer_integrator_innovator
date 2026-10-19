@@ -1071,23 +1071,23 @@ No utilices herencia para evitar unas pocas líneas repetidas si las clases no t
 Observa:
 
 ~~~python
-class Persona:
-    def __init__(self, nombre):
-        self.nombre = nombre
+class Person:
+    def __init__(self, name):
+        self.name = name
 
 
-class Aprendiz(Persona):
-    def __init__(self, nombre, ficha):
-        self.ficha = ficha
+class Student(Person):
+    def __init__(self, name, group_id):
+        self.group_id = group_id
 
 
-aprendiz = Aprendiz("Carlos", "123456")
-print(aprendiz.nombre)
+student = Student("Carlos", "G-101")
+print(student.name)
 ~~~
 
 ¿Por qué falla la última línea?
 
-Corrige la inicialización mediante `super().__init__(nombre)`.
+Corrige la inicialización mediante `super().__init__(name)`.
 
 ### Reto — Sistema de notificaciones
 
@@ -1659,7 +1659,7 @@ La revisión del repositorio debe permitir distinguir qué se agregó, corrigió
 
 El informe debe contener:
 
-1. **Identificación:** aprendiz, ficha y nombre del laboratorio.
+1. **Identificación:** nombre de la persona, grupo (si aplica) y nombre del laboratorio.
 2. **Repositorio:** enlace directo al repositorio personal en GitHub.
 3. **Estado del proyecto:** funcionalidades terminadas, pendientes, dificultades y limitaciones.
 4. **Seguimiento del desarrollo:** selección de commits reales, explicación de qué cambió en cada uno, motivo técnico y resultado obtenido.
