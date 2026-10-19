@@ -10,3 +10,4 @@ Los laboratorios están organizados para trabajar los conceptos mediante ejemplo
 - [Laboratorio 2 — Decisiones, ciclos y colecciones en Python](laboratorios/laboratorio-02.md)
 - [Laboratorio 3 — Funciones, módulos y programación orientada a objetos en Python](laboratorios/laboratorio-03.md)
 - [Laboratorio 4 — Excepciones, archivos, persistencia y POO en Python](laboratorios/laboratorio-04.md)
+- [Laboratorio 5 — Simulación completa de un proyecto Python con Scrum y GitHub](laboratorios/laboratorio-05.md)
