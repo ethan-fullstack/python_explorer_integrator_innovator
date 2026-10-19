@@ -836,21 +836,41 @@ class Resource:
         ):
             raise ValueError("Available units are invalid.")
 
-        self.code = code.strip()
-        self.name = name.strip()
-        self.category = category
-        self.total_units = total_units
-        self.available_units = available_units
+        self._code = code.strip()
+        self._name = name.strip()
+        self._category = category
+        self._total_units = total_units
+        self._available_units = available_units
+
+    @property
+    def code(self):
+        return self._code
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def category(self):
+        return self._category
+
+    @property
+    def total_units(self):
+        return self._total_units
+
+    @property
+    def available_units(self):
+        return self._available_units
 
     def checkout(self):
         if self.available_units == 0:
             raise ValueError("No units are available.")
-        self.available_units -= 1
+        self._available_units -= 1
 
     def checkin(self):
         if self.available_units >= self.total_units:
             raise ValueError("All units are already available.")
-        self.available_units += 1
+        self._available_units += 1
 
     def to_dict(self):
         return {
@@ -886,7 +906,16 @@ class Loan:
         self.loan_id = loan_id
         self.resource_code = resource_code.strip()
         self.borrower = borrower.strip()
-        self.returned = returned
+        self._returned = returned
+
+    @property
+    def returned(self):
+        return self._returned
+
+    def mark_returned(self):
+        if self._returned:
+            raise ValueError("Loan has already been returned.")
+        self._returned = True
 
     def to_dict(self):
         return {
@@ -906,7 +935,7 @@ class Loan:
         )
 ~~~
 
-**Por qué se diseñó así:** cada objeto `Resource` representa un recurso con un estado propio y protege reglas como la disponibilidad. `Loan` representa una operación identificable; no reemplaza al recurso. La tupla `CATEGORIES` expresa un catálogo fijo de categorías para el ejemplo. Los métodos `to_dict()` y `from_dict()` convierten objetos a datos simples y los reconstruyen aplicando las validaciones del constructor.
+**Por qué se diseñó así:** cada objeto `Resource` representa un recurso con un estado propio, expone propiedades de solo lectura y modifica la disponibilidad únicamente mediante operaciones que validan las reglas. `Loan` representa una operación identificable; no reemplaza al recurso y controla la transición al estado devuelto mediante `mark_returned()`. La tupla `CATEGORIES` expresa un catálogo fijo de categorías para el ejemplo. Los métodos `to_dict()` y `from_dict()` convierten objetos a datos simples y los reconstruyen aplicando las validaciones del constructor.
 
 ### A.2. `inventory.py` — Colaboración entre clases y colección central
 
@@ -954,7 +983,7 @@ class Inventory:
 
         resource = self._resources[loan.resource_code]
         resource.checkin()
-        loan.returned = True
+        loan.mark_returned()
 
     def used_categories(self):
         return {resource.category for resource in self._resources.values()}
