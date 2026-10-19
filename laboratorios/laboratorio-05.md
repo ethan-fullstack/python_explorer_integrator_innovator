@@ -1,12 +1,10 @@
 # Laboratorio 5 — Simulación completa de un proyecto Python con Scrum y GitHub
 
-Este laboratorio muestra **un proyecto ficticio desde la idea hasta su entrega**. No es una colección de ejercicios: es una simulación explicada del proceso que sigue un equipo para planificar, construir, comprobar y presentar una aplicación de consola en Python mediante Scrum y GitHub.
+Este laboratorio presenta la simulación completa de un proyecto ficticio: un equipo transforma una idea en una aplicación de consola en Python, la desarrolla mediante Scrum, documenta sus decisiones en GitHub y prepara su entrega final.
 
 El propósito principal es comprender **cómo se aplica Scrum**, no memorizar una lista de nombres. Las decisiones técnicas aparecen relacionadas con historias de usuario, incrementos funcionales, revisiones y cambios en el plan. Al final se incluye una versión ejecutable del producto simulado para contrastar lo narrado con código real.
 
 > **Alcance del ejemplo.** Los nombres de integrantes, historias, números de Issues y Pull Requests y registros de seguimiento que aparecen en este documento son **simulados**. No describen actividad real en GitHub. En un repositorio auténtico, los números, las fechas y los autores se generan o registran mientras ocurre el trabajo; no deben inventarse posteriormente.
-
-> **Convención de idioma.** Las explicaciones, los objetivos, las historias de usuario, los criterios de aceptación, los acuerdos Scrum, los registros de seguimiento y las descripciones de Issues y Pull Requests están en español. Los identificadores del código, los nombres de archivos, funciones, variables y ramas, los comandos y los mensajes de commit se conservan en inglés.
 
 ## Vista general de la simulación
 
@@ -275,7 +273,7 @@ git commit -m "feat: validate resource checkout"
 git push -u origin feature/13-resource-checkout
 ~~~
 
-Los archivos deben existir y contener cambios reales antes de ejecutar estos comandos. El ejemplo no representa un commit realizado en un repositorio auténtico.
+Los archivos deben existir y contener cambios reales antes de ejecutar estos comandos.
 
 ---
 
@@ -351,7 +349,7 @@ PR #20: feat: display resource catalog
 Issue relacionado: Closes #12
 ~~~
 
-Las referencias son simuladas. En un proyecto real, el equipo verificaría que el PR incorpore los archivos correctos, que la aplicación funcione y que los criterios de aceptación estén cumplidos antes de fusionarlo.
+Antes de fusionar un Pull Request, el equipo verifica que incorpore los archivos correctos, que la aplicación funcione y que los criterios de aceptación se hayan cumplido.
 
 ### 4.4. Daily Scrum: inspeccionar el avance
 
@@ -627,7 +625,7 @@ El cierre no elimina trabajo pendiente ni convierte automáticamente nuevas idea
 
 GitHub Projects **no implementa Scrum por sí solo**: visualiza el trabajo. La calidad del proceso depende de decisiones, revisiones y evidencias auténticas.
 
-### 7.2. Ejemplo de Pull Request en inglés
+### 7.2. Ejemplo de Pull Request
 
 ~~~markdown
 # fix: prevent returning a loan twice
@@ -668,7 +666,7 @@ El registro de la simulación podría consolidarse así:
 | #16 Exportar el reporte de recursos a CSV | 3 | 3 | Done | PR #25 |
 | #17 Fortalecer la validación de entradas y agregar pruebas de regresión | 3 | 3 | Done | PR #26 |
 
-Los datos son inventados **para explicar el formato**, no para mostrar actividad real. En un proyecto verdadero, la columna de evidencias debe enlazar a registros existentes.
+La columna de evidencias debe enlazar a los Issues, Pull Requests y pruebas que respaldan cada historia.
 
 No hay que crear un commit por cada cambio de estado del tablero. Sí debe ser posible explicar qué cambio técnico respalda una historia que se reporta como terminada.
 
@@ -789,7 +787,7 @@ La planificación pertenece al equipo, pero la evidencia debe existir mientras s
 
 ## Anexo A — Versión final ejecutable del producto simulado
 
-El código siguiente **no representa commits históricos reales**. Es una versión final coherente que permite ejecutar, inspeccionar y probar el producto ficticio. Las secciones narrativas anteriores explican las decisiones que llevarían hasta este resultado.
+La siguiente versión final permite ejecutar, inspeccionar y probar GearTrack. Su estructura muestra cómo se integran las funcionalidades desarrolladas a lo largo de los tres sprints.
 
 La estructura es:
 
