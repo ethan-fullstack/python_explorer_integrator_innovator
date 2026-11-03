@@ -1,6 +1,6 @@
 # Laboratorio 6 — Fundamentos de Django y primera aplicación web
 
-En el [Laboratorio 5](laboratorio-05.md) analizaste cómo un equipo organiza el desarrollo con Scrum y GitHub, desde la necesidad hasta un incremento verificable. En los laboratorios anteriores construiste aplicaciones de consola con Python, funciones, módulos y clases.
+Este laboratorio introduce el desarrollo web con Django a partir de conocimientos básicos de Python. Si ya has creado programas de consola, reconocerás conceptos como funciones, módulos y colecciones; si estás comenzando con Django, encontrarás los pasos necesarios para construir y comprobar tu primera aplicación web. No es obligatorio haber completado los laboratorios anteriores.
 
 Ahora vas a dar el primer paso hacia una **aplicación web**. Construirás **ClassroomHub**, un pequeño portal de recursos de aprendizaje con tres páginas navegables. Aprenderás qué hace Django, cómo se organiza un proyecto, qué ocurre cuando el navegador solicita una página y cómo utilizar plantillas HTML sin repetir toda la estructura del sitio.
 
@@ -19,11 +19,19 @@ Ahora vas a dar el primer paso hacia una **aplicación web**. Construirás **Cla
 
 ## Alcance y preparación
 
-Este laboratorio corresponde al bloque introductorio previsto en el cronograma de la ficha 3388087: **29 de octubre (2,5 horas de Django)** y **3 de noviembre (3 horas de Django)**. Estas horas son de acompañamiento técnico de Django dentro de sesiones que también incluyen otros componentes formativos. El trabajo autónomo sirve para practicar o completar pasos pendientes.
+### Conocimientos previos
 
-Usaremos **Python 3.12 o superior y Django 6.1.2** como referencia común. Si el equipo dispone únicamente de Python 3.10 o 3.11, debe acordar con el instructor el uso de **Django 5.2 LTS** y consultar la documentación de esa versión. No mezcles instrucciones ni versiones dentro del mismo proyecto. Antes de instalar, verifica las versiones realmente disponibles en el ambiente.
+Para aprovechar los ejercicios conviene saber utilizar variables, funciones, listas y diccionarios de Python, abrir una terminal y editar archivos con Visual Studio Code u otro editor. También ayuda conocer la estructura básica de un documento HTML, aunque se explica el código necesario durante el recorrido.
 
-La aplicación de práctica se desarrollará en un repositorio personal y no necesita reemplazar el proyecto productivo que cada equipo desarrolla para su formación. El cronograma contempla Django como framework enseñado de manera presencial; Flask es una alternativa de aprendizaje autónomo.
+No hace falta conocer Django, bases de datos, autenticación ni despliegue. Puedes trabajar de forma individual y utilizar un repositorio Git para conservar tus avances, pero GitHub no es indispensable para ejecutar el sitio.
+
+### Versiones y compatibilidad
+
+Los ejemplos utilizan **Django 6.1.3** con **Python 3.12, 3.13, 3.14 o 3.15**. Se fija una versión de Django para que los comandos y las dependencias puedan reproducirse; cuando actualices el proyecto, consulta las notas oficiales de seguridad y compatibilidad.
+
+Si utilizas **Python 3.10 o 3.11**, puedes trabajar con **Django 5.2.19 LTS**, siguiendo la documentación de su propia serie. En este laboratorio se utilizan características presentes en ambas ramas. No instales Django 6.1 en una versión de Python incompatible ni mezcles documentación de diferentes versiones.
+
+La aplicación se construirá íntegramente en tu equipo. Al final tendrás instrucciones para compartirla o reproducirla en otro entorno.
 
 ### ¿Qué vas a construir?
 
@@ -79,9 +87,9 @@ Browser
   v
 Django server
   |
-  | Find the matching URL
+  | Match config/urls.py and pages/urls.py
   v
-View function
+View function in pages/views.py
   |
   | Prepare data and render a template
   v
@@ -91,7 +99,26 @@ HTTP response (HTML)
 Browser displays the page
 ~~~
 
-**HTTP** es el protocolo empleado para intercambiar solicitudes y respuestas. Una solicitud `GET` suele utilizarse para consultar un recurso; la respuesta contiene un código de estado y, según el caso, un cuerpo como HTML.
+**HTTP** es el protocolo empleado para intercambiar solicitudes y respuestas. Una solicitud `GET` suele utilizarse para consultar un recurso; la respuesta incluye un código de estado y, según el caso, un cuerpo como HTML.
+
+Por ejemplo, una solicitud y una respuesta podrían representarse de forma simplificada así:
+
+~~~http
+GET /resources/ HTTP/1.1
+Host: 127.0.0.1:8000
+~~~
+
+~~~http
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+
+<!DOCTYPE html>
+<html lang="en">
+...
+</html>
+~~~
+
+Este es un **esquema didáctico**, no el contenido literal de todos los encabezados que enviará Django. La URL identifica el recurso, la vista decide cómo responder y el navegador interpreta el HTML recibido.
 
 | Situación | Respuesta esperada |
 |---|---|
@@ -183,7 +210,7 @@ En algunos equipos Windows el comando disponible es:
 py --version
 ~~~
 
-Para la instalación principal del laboratorio, el intérprete debe ser Python 3.12 o posterior. Si el equipo no cumple esa condición, no intentes forzar la instalación de Django 6.1.2: consulta la alternativa compatible descrita al inicio.
+Para el recorrido principal utiliza una de las versiones de Python compatibles con Django 6.1.3 indicadas en la preparación. Si tienes Python 3.10 u 3.11, utiliza la alternativa de Django 5.2.19 antes de continuar.
 
 Comprueba también:
 
@@ -242,17 +269,17 @@ python -c "import sys; print(sys.executable)"
 Con el entorno activo:
 
 ~~~bash
-python -m pip install Django==6.1.2
+python -m pip install Django==6.1.3
 python -m django --version
 ~~~
 
 El segundo comando debe mostrar:
 
 ~~~text
-6.1.2
+6.1.3
 ~~~
 
-> **Alternativa por compatibilidad.** Con Python 3.10 o 3.11, acuerda el uso de la última actualización disponible de la serie Django 5.2 LTS. Consulta [la tabla oficial de compatibilidad](https://docs.djangoproject.com/en/6.1/faq/install/) y trabaja con [la documentación de Django 5.2](https://docs.djangoproject.com/en/5.2/). El resto de este laboratorio utiliza características comunes a ambas series, pero los ejemplos se validan tomando 6.1.2 como referencia.
+> **Alternativa por compatibilidad.** Si trabajas con Python 3.10 u 3.11, instala `Django==5.2.19` en lugar de `Django==6.1.3`, y verifica que la terminal muestre `5.2.19`. Consulta [la tabla oficial de compatibilidad](https://docs.djangoproject.com/en/6.1/faq/install/) y utiliza [la documentación de Django 5.2](https://docs.djangoproject.com/en/5.2/). Mantén esa versión coherente en `requirements.txt`.
 
 ### 5. Registrar dependencias
 
@@ -293,7 +320,16 @@ Crea también un `README.md` breve que indique qué es ClassroomHub y cómo inst
 
 **Error 2 — `python` no se reconoce.** Comprueba la instalación y la configuración de Python. En Windows prueba `py`; en VS Code selecciona explícitamente el intérprete.
 
-**Error 3 — Fallo de permisos durante la activación.** Usa el intérprete dentro de `.venv` sin activar o solicita orientación sobre la política del equipo. No instales dependencias globalmente solo para omitir el problema.
+**Error 3 — Fallo de permisos durante la activación.** Puedes ejecutar directamente el intérprete del entorno sin activar PowerShell. Por ejemplo, en Windows:
+
+~~~powershell
+.\.venv\Scripts\python.exe -m pip install Django==6.1.3
+.\.venv\Scripts\python.exe -m django --version
+~~~
+
+En Linux/macOS, el equivalente comienza con `./.venv/bin/python`. No instales dependencias globalmente solo para omitir el problema.
+
+**Error 4 — El editor utiliza otro intérprete.** Verifica `python -c "import sys; print(sys.executable)"` en la terminal y el intérprete elegido en VS Code. Si difieren, puede ocurrir que Django funcione en una terminal y no en otra.
 
 ### Ejercicio — Reproducir el entorno
 
@@ -395,6 +431,14 @@ http://127.0.0.1:8000/
 Verás la página inicial que Django muestra cuando aún no has configurado una página propia.
 
 El servidor permanece ejecutándose en la terminal. Para detenerlo, presiona `Ctrl+C`.
+
+Si el puerto 8000 está ocupado, puedes utilizar otro puerto local:
+
+~~~bash
+python manage.py runserver 8001
+~~~
+
+En ese caso abre `http://127.0.0.1:8001/`. El puerto elegido no cambia las rutas declaradas en `urls.py`; solo cambia la dirección donde escucha el servidor.
 
 > **Importante.** `runserver` está pensado para desarrollo local, no para publicar una aplicación en producción. Deja `DEBUG=True` únicamente en el entorno de aprendizaje. No compartas contraseñas ni utilices la clave de desarrollo generada por Django como secreto de producción.
 
@@ -627,6 +671,25 @@ Los nombres `home`, `resources` y `about` permiten construir enlaces sin escribi
 ### Reto — Una cuarta ruta sin HTML
 
 Agrega temporalmente una vista `contact` que responda `"Contact information"` y publica la dirección `/contact/`. Hazlo sin copiar todo el archivo de configuración. Después decide si conservarás esa ruta o si la retirarás para mantener el alcance de las tres páginas del reto final.
+
+### Ejercicio adicional — Rutas con parámetros
+
+Hasta ahora las rutas son fijas. Django también puede extraer un valor de la URL y pasarlo a una vista. Por ejemplo, agrega temporalmente esta función en `pages/views.py`:
+
+~~~python
+def topic_detail(request, slug):
+    return HttpResponse(f"Requested topic: {slug}")
+~~~
+
+Y esta ruta a `urlpatterns` en `pages/urls.py`:
+
+~~~python
+path("topics/<slug:slug>/", views.topic_detail, name="topic-detail"),
+~~~
+
+Abre `/topics/python-basics/` y `/topics/git-basics/`. Observa que **la misma vista** recibe valores diferentes para `slug`. El convertidor `slug` admite segmentos apropiados para identificadores de texto; no es una consulta a una base de datos.
+
+Prueba también `/topics/python/basics/`: como incluye una barra adicional, no coincide con este patrón. Al terminar, **retira la función y la ruta opcionales**, de modo que las próximas prácticas mantengan las tres páginas previstas.
 
 ### Comprobación
 
@@ -866,6 +929,16 @@ Visita `/resources/`. Debes ver tres recursos; uno aparecerá con el estado `Com
 
 Los datos están en una lista de diccionarios dentro de la vista **porque todavía no hemos estudiado modelos ni bases de datos**. No agregues archivos JSON ni consultas SQL para este ejemplo.
 
+Observa la correspondencia entre Python y la plantilla:
+
+| En la vista | En la plantilla | Resultado visible |
+|---|---|---|
+| `"resources": [...]` | `{% for resource in resources %}` | Se genera un bloque por cada recurso |
+| `"title": "Python basics"` | `{{ resource.title }}` | Se muestra el título |
+| `"available": False` | `{% if resource.available %}` | Se ejecuta la rama `else` |
+
+No se escribe un bloque HTML por cada dato: la vista prepara la información y la plantilla decide cómo presentarla.
+
 ### 8. Construir la página informativa
 
 Crea `pages/templates/pages/about.html`:
@@ -914,6 +987,12 @@ Agrega dos recursos en el diccionario de contexto de `resources`. Cambia el esta
 **Error 3 — Etiqueta de plantilla sin cerrar.** En una copia de `resources.html`, elimina temporalmente `{% endfor %}`. Observa el mensaje del motor de plantillas y vuelve a cerrar el bloque.
 
 **Error 4 — Lista vacía.** Envía `"resources": []` desde la vista. No es un error técnico: verifica el mensaje diseñado para esa situación y restaura la lista.
+
+### Nota — Texto y HTML no son lo mismo
+
+Django **escapa caracteres HTML especiales por defecto** cuando renderiza valores de contexto. Compruébalo cambiando temporalmente el mensaje de bienvenida por `"<strong>Learning portal</strong>"` en `pages/views.py`: el navegador mostrará las etiquetas como texto, en lugar de interpretarlas como negrita. Restaura el mensaje original después.
+
+Este comportamiento ayuda a evitar que un valor de texto se convierta accidentalmente en HTML ejecutable. No desactives el escape con `safe` para mostrar contenido que no controlas; la seguridad de las plantillas se estudiará con mayor detalle al construir aplicaciones que reciban entradas de usuarios.
 
 ### Reto — Personaliza sin duplicar
 
@@ -1123,6 +1202,14 @@ class PageViewsTests(SimpleTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "pages/about.html")
 
+    def test_home_navigation_links_to_resources(self):
+        response = self.client.get(reverse("pages:home"))
+
+        self.assertContains(
+            response,
+            f'href="{reverse("pages:resources")}"',
+        )
+
     def test_unknown_page_returns_not_found(self):
         response = self.client.get("/not-found/")
 
@@ -1135,7 +1222,7 @@ Detén el servidor si deseas utilizar la misma terminal y ejecuta:
 python manage.py test pages
 ~~~
 
-**Resultado esperado:** cuatro pruebas exitosas.
+**Resultado esperado:** cinco pruebas exitosas. Una de ellas verifica que la navegación contiene la URL construida a partir del nombre de la ruta, no solo que la vista responde.
 
 Los nombres de rutas se resuelven mediante `reverse()`, de manera coherente con los enlaces de plantilla. `SimpleTestCase` permite realizar estas verificaciones sin crear datos de prueba en una base de datos.
 
@@ -1215,7 +1302,7 @@ Después de completar y comprobar las tres páginas, crea una **cuarta página o
 
 La página debe responder al menos dos preguntas acerca de ClassroomHub. No utilices formularios, modelos ni bases de datos: el objetivo sigue siendo practicar la relación entre rutas, vistas y plantillas.
 
-### 10. Preguntas de sustentación
+### 10. Preguntas para explicar tu solución
 
 Responde con tus palabras y, cuando sea posible, señala el archivo correspondiente:
 
@@ -1225,7 +1312,7 @@ Responde con tus palabras y, cuando sea posible, señala el archivo correspondie
 4. ¿Por qué utilizamos `render()` en vez de crear todo el HTML con `HttpResponse`?
 5. ¿Qué problema resuelve `base.html` y qué ocurre si se modifica su navegación?
 6. ¿Qué diferencia hay entre una respuesta `404` y un error `TemplateDoesNotExist`?
-7. ¿Por qué los recursos se pierden o reinician cuando modificas el código o reinicias el proceso? ¿Qué tema deberá abordar el siguiente laboratorio?
+7. ¿Por qué la lista de recursos siempre vuelve a los valores definidos en `views.py` al iniciar la aplicación? ¿Qué faltaría para guardar altas, ediciones o eliminaciones realizadas por usuarios?
 8. ¿Qué demuestra `python manage.py check` y qué demuestran las pruebas automatizadas? ¿Por qué no son equivalentes?
 
 ### 11. Revisión final antes de compartir
@@ -1241,15 +1328,15 @@ Verifica todos los puntos:
 - [ ] Los datos de las vistas aparecen en las plantillas.
 - [ ] Una ruta inexistente devuelve `404`.
 - [ ] `python manage.py check` termina correctamente.
-- [ ] `python manage.py test pages` supera las cuatro pruebas.
+- [ ] `python manage.py test pages` supera las cinco pruebas.
 - [ ] El `README.md` explica cómo ejecutar y verificar el sitio.
 - [ ] No se subieron credenciales, secretos reales ni archivos locales innecesarios.
 
-### 12. Entrega de la práctica
+### 12. Compartir y reproducir el proyecto
 
-Comparte el **enlace al repositorio personal de GitHub** y asegúrate de que el `README.md` permite reproducir el resultado. En la clase presencial, demuestra el funcionamiento y explica qué archivos intervienen en una de las solicitudes.
+Si deseas compartir el trabajo, publica el código en un repositorio GitHub y conserva las instrucciones de ejecución en `README.md`. Otra persona debe poder clonar el repositorio, crear su entorno virtual, instalar las dependencias, ejecutar las pruebas y abrir las páginas sin depender de configuraciones ocultas.
 
-Este laboratorio es una **práctica formativa**. No crea por sí mismo un nuevo código oficial de evidencia ni sustituye la evidencia del proyecto indicada en el cronograma. Si se requiere un registro en Moodle, puede utilizarse una Tarea para recibir el enlace y registrar la retroalimentación, sin exigir un PDF adicional por defecto.
+Antes de dar el ejercicio por terminado, demuestra la navegación y explica, con el proyecto abierto, qué sucede al solicitar `/resources/`. No se requiere un informe adicional: el código, las pruebas y las instrucciones de reproducción constituyen el resultado de este laboratorio.
 
 ---
 
@@ -1264,6 +1351,7 @@ Conserva ClassroomHub y su historial. Podrás reutilizar la estructura en los si
 ### Referencias
 
 - [Django 6.1 — Tutorial 1: proyecto, aplicaciones y URLs](https://docs.djangoproject.com/en/6.1/intro/tutorial01/)
+- [Django 6.1.3 — Notas de la versión y correcciones](https://docs.djangoproject.com/en/6.1/releases/6.1.3/)
 - [Django 6.1 — Tutorial 3: vistas y plantillas](https://docs.djangoproject.com/en/6.1/intro/tutorial03/)
 - [Django 6.1 — Templates](https://docs.djangoproject.com/en/6.1/topics/templates/)
 - [Django 6.1 — URL dispatcher](https://docs.djangoproject.com/en/6.1/topics/http/urls/)
