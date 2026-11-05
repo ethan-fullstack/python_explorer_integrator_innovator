@@ -1370,6 +1370,19 @@ class ResourceCrudTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "pages/resource_form.html")
 
+    def test_reader_cannot_create_resource_via_post(self):
+        self.client.force_login(self.reader)
+
+        response = self.client.post(
+            reverse("pages:resource-create"),
+            self.resource_data(),
+        )
+
+        self.assertEqual(response.status_code, 403)
+        self.assertFalse(
+            Resource.objects.filter(title="Database testing").exists()
+        )
+
     def test_editor_can_create_resource(self):
         self.client.force_login(self.editor)
 
@@ -1448,6 +1461,21 @@ class ResourceCrudTests(TestCase):
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, 403)
+
+    def test_reader_cannot_update_resource_via_post(self):
+        self.client.force_login(self.reader)
+        url = reverse(
+            "pages:resource-update", args=[self.resource.pk]
+        )
+
+        response = self.client.post(
+            url,
+            self.resource_data(title="Forbidden update"),
+        )
+
+        self.assertEqual(response.status_code, 403)
+        self.resource.refresh_from_db()
+        self.assertEqual(self.resource.title, "Python basics")
 
     def test_editor_can_open_update_form(self):
         self.client.force_login(self.editor)
@@ -1573,6 +1601,17 @@ class ResourceCrudTests(TestCase):
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, 404)
+
+    def test_reader_does_not_see_edit_or_delete_links(self):
+        self.client.force_login(self.reader)
+        url = reverse(
+            "pages:resource-detail", args=[self.resource.pk]
+        )
+
+        response = self.client.get(url)
+
+        self.assertNotContains(response, "Edit resource")
+        self.assertNotContains(response, "Delete resource")
 
     def test_editor_can_manage_without_staff_status(self):
         self.client.force_login(self.editor)
