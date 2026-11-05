@@ -12,3 +12,4 @@ Los laboratorios están organizados para trabajar los conceptos mediante ejemplo
 - [Laboratorio 4 — Excepciones, archivos, persistencia y POO en Python](laboratorios/laboratorio-04.md)
 - [Laboratorio 5 — Simulación completa de un proyecto Python con Scrum y GitHub](laboratorios/laboratorio-05.md)
 - [Laboratorio 6 — Fundamentos de Django y primera aplicación web](laboratorios/laboratorio-06.md)
+- [Laboratorio 7 — Persistencia con Django y MySQL o MariaDB](laboratorios/laboratorio-07.md)
