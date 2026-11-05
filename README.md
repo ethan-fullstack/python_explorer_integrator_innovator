@@ -14,3 +14,4 @@ Los laboratorios están organizados para trabajar los conceptos mediante ejemplo
 - [Laboratorio 6 — Fundamentos de Django y primera aplicación web](laboratorios/laboratorio-06.md)
 - [Laboratorio 7 — Persistencia con Django y MySQL o MariaDB](laboratorios/laboratorio-07.md)
 - [Laboratorio 8 — Autenticación, sesiones, grupos y permisos en Django](laboratorios/laboratorio-08.md)
+- [Laboratorio 9 — Formularios y CRUD protegido en Django](laboratorios/laboratorio-09.md)
